@@ -1,5 +1,8 @@
 package com.myweb.controller;
 
+import com.myweb.service.UserService;
+import com.myweb.utils.ResponseMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,26 +16,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestParam(value = "username",required = false)String username,
+    public ResponseMessage login(@RequestParam(value = "username",required = false)String username,
                         @RequestParam(value = "password",required = false)String password){
-        System.out.println(username);
-        System.out.println(password);
 
-        return "success";
+        boolean result = userService.loginCheck(username, password);
+
+        if(result == true){
+            return new ResponseMessage().success();
+
+        }else {
+            return new ResponseMessage().error();
+        }
+
+
     }
 
     @PostMapping("/register")
     @ResponseBody
-    public String register(@RequestParam("username")String username,
+    public ResponseMessage register(@RequestParam("username")String username,
                            @RequestParam("password")String password,
                            @RequestParam("passwordAgain")String passwordAgain){
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(passwordAgain);
 
-        return "success";
+        boolean result = userService.registerCheck(username,password,passwordAgain);
+
+        if(result == true){
+            return new ResponseMessage().success();
+
+        }else {
+            return new ResponseMessage().error();
+        }
+
     }
 
 }
