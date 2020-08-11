@@ -17,8 +17,10 @@ body{
     margin-left: -200px;    /*width的一半*/
 }
 
-/*主要登入註冊區塊的頂部*/
+/*主要登入註冊區塊的頂部按鈕部份*/
 .main .main-header{
+
+    /*background-color: #ff0000;*/
 
     width: 400px;
     height: 100px;
@@ -34,15 +36,38 @@ body{
 /*=主要登入註冊區塊的中間部份*/
 .main .main-body{
 
+    /*background-color: #00ff00;*/
+
+    width: 400px;
+    height: 100px;
+
+    position: absolute;
+    left: 50%;
+
+    margin-top: 100px;
+    margin-left: -120px;
+
+}
+
+/*主要登入註冊區塊的表單部份*/
+.main .main-form{
+
+    /*background-color: #0000ff;*/
     width: 400px;
     height: 200px;
 
     position: absolute;
     left: 50%;
 
-    padding-top: 100px;
-    margin-left: -120px;
+    margin-top: 150px;
+    margin-left: -150px;
 
+}
+
+/*登錄註冊按鈕*/
+.main .main-form .layui-btn{
+    width: 200px;
+    margin-left: 45px;
 }
 
 

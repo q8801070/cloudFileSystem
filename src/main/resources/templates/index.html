@@ -16,44 +16,86 @@
     <div class="main">
 
         <div class="main-header">
-<!--            <i class="layui-icon" style="font-size: 40px;color: #8800ff;font-family: 'STKaiti'">雲端管理</i>-->
             <img src="/static/images/login.png">
         </div>
 
         <div class="main-body">
 
-            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">使用者登入</button>
-            <button type="button" class="layui-btn layui-btn-warm layui-btn-radius">使用者註冊</button>
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="loginBtn">使用者登錄</button>
+            <button type="button" class="layui-btn layui-btn-warm layui-btn-radius" id="registerBtn">使用者註冊</button>
 
         </div>
 
         <div class="main-form">
-            <form class="layui-form layui-form-pane" action="">
+            <form class="layui-form layui-form-pane" id="userForm">
                 <div class="layui-form-item">
                     <label class="layui-form-label">帳號</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="username" placeholder="請輸入帳號" class="layui-input">
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">密碼</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="password" placeholder="請輸入密碼" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
                 </div>
+
+                <div class="layui-form-item" id="checkPasswordDiv" hidden>
+                    <label class="layui-form-label">確認密碼</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" placeholder="再次輸入密碼" class="layui-input">
+                    </div>
+                </div>
+
+                <button class="layui-btn layui-btn-danger layui-btn-radius" style="width: 200px" id="submitBtn">進行登錄</button>
+
             </form>
         </div>
-
 
 
     </div>
 
 
     <script type="text/javascript">
+        'use strict';
+        var state = 'login';
 
         //引用layui模組
-        layui.use(['element','jquery'],function () {
+        layui.use(['element','jquery','form'],function () {
+
+            var $ = layui.jquery;
+            var form = layui.form;
+
+
+            //提交按扭事件
+            $("#submitBtn").click(function () {
+                let data = $("#userForm").serialize();
+                console.log(data);
+
+                if(state === 'login'){
+                    //如果是選擇登入
+                    $.ajax({
+
+                    });
+                }else if(state === 'register'){
+                    //如果是選擇註冊
+                    $.ajax({
+
+                    });
+                }
+
+            });
+
+
+            //登錄按扭事件
+            $("#loginBtn").click(function () {
+
+            });
+
+
+            //註冊按扭事件
 
         });
 
