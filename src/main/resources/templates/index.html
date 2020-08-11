@@ -45,12 +45,11 @@
                 <div class="layui-form-item" id="checkPasswordDiv" hidden>
                     <label class="layui-form-label">確認密碼</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" placeholder="再次輸入密碼" class="layui-input">
+                        <input type="password" name="passwordAgain" placeholder="再次輸入密碼" class="layui-input">
                     </div>
                 </div>
 
-                <button class="layui-btn layui-btn-danger layui-btn-radius" style="width: 200px" id="submitBtn">進行登錄</button>
-
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-radius" style="width: 200px" id="submitBtn">進行登錄</button>
             </form>
         </div>
 
@@ -71,18 +70,39 @@
 
             //提交按扭事件
             $("#submitBtn").click(function () {
-                let data = $("#userForm").serialize();
-                console.log(data);
+                var param = $("#userForm").serialize();
+                console.log(param);
 
                 if(state === 'login'){
                     //如果是選擇登入
                     $.ajax({
-
+                        url:"/user/login",
+                        dataType:"text",
+                        contentType:"application/x-www-form-urlencoded",
+                        type:"post",
+                        data:param,
+                        success:function (response) {
+                            alert("成功了");
+                        },
+                        error(){
+                            alert("出錯了");
+                        }
                     });
+
                 }else if(state === 'register'){
                     //如果是選擇註冊
                     $.ajax({
-
+                        url:"/user/register",
+                        dataType:"text",
+                        contentType:"application/x-www-form-urlencoded",
+                        type:"post",
+                        data:param,
+                        success:function (response) {
+                            alert("成功了");
+                        },
+                        error(){
+                            alert("出錯了");
+                        }
                     });
                 }
 
@@ -91,11 +111,17 @@
 
             //登錄按扭事件
             $("#loginBtn").click(function () {
-
+                state = 'login';
+                $("#checkPasswordDiv").hide();
+                $("#submitBtn").text("進行登錄");
             });
 
-
             //註冊按扭事件
+            $("#registerBtn").click(function () {
+                state = 'register';
+                $("#checkPasswordDiv").show();
+                $("#submitBtn").text("進行註冊");
+            });
 
         });
 
