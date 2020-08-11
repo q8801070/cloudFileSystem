@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:font-size="http://www.w3.org/1999/xhtml">
+<head>
+    <title>首頁</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+
+    <link rel="stylesheet" href="/static/css/index.css">
+
+    <link rel="stylesheet" href="/libs/layui/css/layui.css"> <!--引用layui css-->
+    <script src="/libs/layui/layui.js"></script> <!--引用layui js-->
+</head>
+<body>
+
+    <p style="font-size: 1px; color: #e66465">該物件用於渲染背景</p> <!--需要有一個物件，才能觸發渲染背景顏色-->
+
+    <div class="main">
+
+        <div class="main-header">
+<!--            <i class="layui-icon" style="font-size: 40px;color: #8800ff;font-family: 'STKaiti'">雲端管理</i>-->
+            <img src="/static/images/login.png">
+        </div>
+
+        <div class="main-body">
+
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-radius">使用者登入</button>
+            <button type="button" class="layui-btn layui-btn-warm layui-btn-radius">使用者註冊</button>
+
+        </div>
+
+        <div class="main-form">
+            <form class="layui-form layui-form-pane" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">帳號</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密碼</label>
+                    <div class="layui-input-inline">
+                        <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
+                </div>
+            </form>
+        </div>
+
+
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        //引用layui模組
+        layui.use(['element','jquery'],function () {
+
+        });
+
+    </script>
+
+</body>
+</html>

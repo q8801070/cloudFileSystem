@@ -1,0 +1,59 @@
+body{
+    background: linear-gradient(45deg, #e66465, #9198e5);
+}
+
+/*主要的登入註冊區塊*/
+.main{
+    width: 400px;
+    height: 400px;
+    background-color: #FFFFFF;
+    box-shadow: 5px 5px 5px #666;
+
+    position:absolute;
+    left: 50%;
+    top: 50%;
+
+    margin-top: -200px;     /*height的一半*/
+    margin-left: -200px;    /*width的一半*/
+}
+
+/*主要登入註冊區塊的頂部*/
+.main .main-header{
+
+    width: 400px;
+    height: 100px;
+
+    position: absolute;
+    left: 50%;
+
+    padding-top: 20px;
+    margin-left: -40px;
+    /*margin: 0px auto;*/
+}
+
+/*=主要登入註冊區塊的中間部份*/
+.main .main-body{
+
+    width: 400px;
+    height: 200px;
+
+    position: absolute;
+    left: 50%;
+
+    padding-top: 100px;
+    margin-left: -120px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
