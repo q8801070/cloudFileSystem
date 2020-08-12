@@ -3,13 +3,15 @@ package com.myweb.controller;
 import com.myweb.service.UserService;
 import com.myweb.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+import com.myweb.pojo.User;
 
 /**
  * 處理使用者相關登入、註冊等功能
@@ -28,9 +30,7 @@ public class UserController {
                                  HttpServletResponse response,
                                  HttpServletRequest request){
 
-        System.out.println("here");
-
-        boolean result = userService.loginCheck(username, password);
+        boolean result = userService.loginCheck(username, password,request,response);
 
         if(result == true){
             return new ResponseMessage().success();

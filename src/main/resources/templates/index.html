@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:font-size="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <title>雲端空間管理</title>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
@@ -77,6 +77,7 @@
             //提交按扭事件
             $("#submitBtn").click(function () {
                 var param = $("#userForm").serialize();
+                checkGoCloudManagement(); //先確認是否已經登錄了，如果已經登錄就轉發。
                 //console.log(param);
 
                 if(state === 'login'){
@@ -100,6 +101,8 @@
                             console.log(response)
                             if(response.resultCode == 200){
                                 layer.msg("登入失敗，請確認帳號密碼正確");
+                            }else{
+                                checkGoCloudManagement();
                             }
                         },
                         error(){
@@ -127,6 +130,7 @@
                         success:function (response) {
                             if(response.resultCode == 100){
                                 layer.msg("註冊成功");
+                                checkGoCloudManagement();
                             }else if(response.resultCode == 200){
                                 layer.msg("註冊失敗，密碼不符合，或該帳號已經被使用");
                             }
@@ -156,6 +160,20 @@
                 $("#submitBtn").text("進行註冊");
                 clearInputText();
             });
+            
+            function checkGoCloudManagement() {
+                $.ajax({
+                    url:"/router/checkGoCloudManagement",
+                    datatype:"html",
+                    type:"post",
+                    success:function (response) {
+                        document.write(response);
+                    },
+                    error(){
+                        alert("系統維護中");
+                    }
+                });
+            }
 
         });
 

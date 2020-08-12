@@ -11,11 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+
+    @Value("${mysession.user}")
+    private String USER_SESSION;
 
     @Autowired
     private UserMapper userMapper;
@@ -27,16 +34,22 @@ public class UserServiceImpl implements UserService {
     private FileUtil fileUtil;
 
     @Override
-    public boolean loginCheck(String username, String password) {
+    public boolean loginCheck(String username, String password, HttpServletRequest request, HttpServletResponse response) {
 
         List<User> users = userMapper.selectList(null);
 
+        //檢查登入條件
         if(username.length() <8 || username.length() >30 || password.length()<8 || password.length() >30){
             return false;
         }
 
+        //檢查帳號密碼是否一致
         for (User user : users) {
             if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
+                //建立Session
+                HttpSession session = request.getSession();
+                session.setAttribute(USER_SESSION,userMapper.selectById(user));
+
                 return true;
             }
         }

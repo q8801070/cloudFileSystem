@@ -6,10 +6,28 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloud_management?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
 
+
 #配置靜態資源路徑
   resources:
     static-locations: classpath:/ #只要是static裡面的資源，要從根目錄(resources底下)開始找
 
+
 #配置自定義路徑
 mycloud:
   upload-folder: C:\Users\User\Desktop\cloud\
+
+
+#配置自定義Session名稱
+mysession:
+  user: user #key值為user 存放com.myweb.pojo.User類物件
+
+
+
+
+
+
+
+
+
+
+
