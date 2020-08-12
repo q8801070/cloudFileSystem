@@ -1,0 +1,68 @@
+html{
+    width: 100%;
+    height: 88%;
+}
+
+body{
+    background-color: #f1f1f6;
+    width: 100%;
+    height: 100%;
+}
+
+/*頂部區塊*/
+.header{
+
+    width: 90%;
+    height: 100px;
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-top: 5%;
+    line-height: 100px;
+
+}
+
+.header .layui-icon{
+    font-size: 30px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+/*中間右側區塊*/
+.bodyRight{
+
+    width: 30%;
+    height: 200px;
+    background-color: #ffffff;
+    margin-right: 5%;
+    margin-top: 5%;
+
+    float: right;
+
+
+}
+
+/*中間左側區塊*/
+.bodyLeft{
+
+    width: 50%;
+    height: 250px;
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-top: 5%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

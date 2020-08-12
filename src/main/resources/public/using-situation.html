@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用情況</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> <!--chart.js-->
+
+
+
+</head>
+<body>
+
+    <div style="width: 400px; height: 400px">
+        <canvas id="canvasPie"></canvas>
+    </div>
+
+    <script>
+        //資料標題
+        var labels= ['高興','難過'];
+
+        var ctx = document.getElementById('canvasPie').getContext('2d');
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data : {
+                labels:labels,
+                    datasets: [{
+                        //預設資料
+                        data:[10,85], //按照labels的資料索引位置對應
+                        backgroundColor: [
+                            //資料顏色
+                            "#00A1FF",
+                            "#FF0004"
+                    ],
+                }],
+            }
+        });
+
+
+        function changeData() {
+            //隨機資料
+            var randomNum=Math.floor(Math.random() *100) + 1;
+            //將隨機資料載入至圖表中
+            pieChart.data.datasets[0].data=[randomNum,100-randomNum];
+            //更新
+            pieChart.update();
+        }
+
+       // setInterval(changeData,2000);
+
+    </script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

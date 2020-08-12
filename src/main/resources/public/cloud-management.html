@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html> <!--給予最外層父容器高度，以便div使用-->
+<head>
+    <meta charset="utf-8">
+    <title>雲端檔案管理</title>
+
+    <link rel="stylesheet" href="/static/css/cloud-management.css"> <!--引用外部css-->
+
+    <link rel="stylesheet" href="/libs/layui/css/layui.css"> <!--引用layui css-->
+    <script src="/libs/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
+
+</head>
+<body>
+
+<!--頂部區塊-->
+<div class="header">
+
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <i class="layui-icon" style="font-size: 17px">&#xe770; &nbsp 使用者</i>
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">基本資料</a></dd>
+                <dd><a href="">登出</a></dd>
+            </dl>
+        </li>
+    </ul>
+
+</div>
+<!--頂部區塊結束-->
+
+<!--左側區塊-->
+<div class="bodyLeft">
+
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo">
+
+        <img src="/static/images/cloud.png" style="padding-left: 50%; margin-left: -32px; padding-top: 10px;padding-bottom: 5px">
+
+
+        <li class="layui-nav-item">
+            <a href="">
+                   <i class="layui-icon" style="font-size: 17px">&#xe62c; &nbsp 使用情況</i>
+            </a>
+        </li>
+
+        <li class="layui-nav-item">
+            <a href="">
+                <i class="layui-icon" style="font-size: 17px">&#xe705; &nbsp 所有檔案</i>
+            </a></li>
+
+        <li class="layui-nav-item">
+            <a href="">
+                <i class="layui-icon" style="font-size: 17px">&#xe67c; &nbsp 上傳檔案</i>
+            </a>
+        </li>
+
+        <li class="layui-nav-item">
+            <a href="javascript:;">分類檔案</a>
+            <dl class="layui-nav-child">
+                <dd>
+                    <a href="javascript:;">
+                        <i class="layui-icon" style="font-size: 17px">&#xe621; &nbsp 我的文件</i>
+                        <span class="layui-badge">9</span>
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;">
+                        <i class="layui-icon" style="font-size: 17px">&#xe64a; &nbsp 我的圖片</i>
+                    </a>
+                </dd>
+
+                <dd>
+                    <a href="javascript:;">
+                        <i class="layui-icon" style="font-size: 17px">&#xe6ed; &nbsp 我的影片</i>
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;">
+                        <i class="layui-icon" style="font-size: 17px">&#xe6fc; &nbsp 我的音樂</i>
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;">
+                        <i class="layui-icon" style="font-size: 17px">&#xe630; &nbsp 其他文件</i>
+                    </a>
+                </dd>
+            </dl>
+        </li>
+
+        <li class="layui-nav-item">
+            <a href="">
+                <i class="layui-icon" style="font-size: 17px">&#xe607; &nbsp 幫助</i>
+            </a>
+        </li>
+
+<!--        <button type="button" class="layui-btn layui-btn-danger layui-btn-radius layui-icon" id="submitBtn"-->
+<!--                style="width: 100px; margin:0 auto; display:block;">-->
+<!--            &#xe682; &nbsp 登出-->
+<!--        </button>-->
+
+    </ul>
+</div>
+<!--左側區塊結束-->
+
+
+<!--右側區塊開始-->
+<div class="bodyRight">
+
+    <iframe src="/public/file-upload.html" class="bodyRightFrame" id="bodyRightFrame"></iframe>
+
+</div>
+<!--右側區塊結束-->
+
+<!--底部區塊開始-->
+<div class="footer">
+
+    <p>hello</p>
+
+</div>
+<!--底部區塊結束-->
+
+
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/static/css/file-upload.css"> <!--引用外部css-->
+
+    <link rel="stylesheet" href="/libs/layui/css/layui.css"> <!--引用layui css-->
+    <script src="/libs/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
+
+</head>
+<body>
+
+    <div class="header">
+
+        <i class="layui-icon">&#xe67c; 上傳檔案</i>
+
+    </div>
+
+
+
+    <div class="bodyRight">
+
+        123
+
+    </div>
+
+    <div class="bodyLeft">
+
+        <div class="layui-upload">
+
+            <button type="button" class="layui-btn layui-btn-normal" id="testList">選擇多個檔案</button>
+            <button type="button" class="layui-btn" id="testListAction">開始上傳</button>
+            <div class="layui-upload-list">
+                <table class="layui-table">
+                    <tr>
+                        <th align="center">檔案名稱</th>
+                        <th>檔案大小</th>
+                        <th>狀態</th>
+                        <th>操作</th>
+                    </tr>
+                    <tbody id="demoList"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        layui.use('upload', function(){
+            var $ = layui.jquery
+                ,upload = layui.upload;
+
+            //多檔案上傳
+            var demoListView = $('#demoList')
+                ,uploadListIns = upload.render({
+                elem: '#testList'
+                ,url: '/fileUpload/upload'
+                ,accept: 'file'
+                ,multiple: true
+                ,auto: false
+                ,bindAction: '#testListAction'
+                ,field: 'file'
+                ,choose: function(obj){
+                    var files = this.files = obj.pushFile(); //將每次選取的檔案追加上去
+                    //读取本地文件
+                    obj.preview(function(index, file, result){
+                        var tr = $(['<tr id="upload-'+ index +'">'
+                            ,'<td>'+ file.name +'</td>'
+                            ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
+                            ,'<td>等待上傳</td>'
+                            ,'<td>'
+                            ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
+                            ,'</td>'
+                            ,'</tr>'].join(''));
+
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function(){
+                            obj.upload(index, file);
+                        });
+
+                        //删除
+                        tr.find('.demo-delete').on('click', function(){
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+
+                        demoListView.append(tr);
+                    });
+                }
+                ,done: function(res, index, upload){
+                    console.log(res);
+                    console.log(this);
+                    if(true){ //上传成功
+                        var tr = demoListView.find('tr#upload-'+ index)
+                            ,tds = tr.children();
+                        tds.eq(2).html('<span style="color: #5FB878;">上傳成功</span>');
+                        tds.eq(3).html(''); //清空操作
+                        return delete this.files[index]; //刪除隊列中已經上傳成功的檔案
+                    }
+                    this.error(index, upload);
+                }
+                ,error: function(index, upload){
+                    var tr = demoListView.find('tr#upload-'+ index)
+                        ,tds = tr.children();
+                    tds.eq(2).html('<span style="color: #FF5722;">上傳失敗</span>');
+                }
+            });
+
+        });
+
+
+
+    </script>
+
+
+</body>
+</html>
