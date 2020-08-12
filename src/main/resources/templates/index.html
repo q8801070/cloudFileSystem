@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>雲端空間管理</title>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
@@ -27,29 +27,33 @@
         </div>
 
         <div class="main-form">
-            <form class="layui-form layui-form-pane" id="userForm">
+            <form class="layui-form layui-form-pane" id="userForm" action="/user/login" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">帳號</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="username" id="usernameText" placeholder="請輸入8~30個字母" class="layui-input">
+                        <input type="text" id="usernameText" name="username" placeholder="請輸入8~30個字母" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">密碼</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="password" id="passwordText" placeholder="請輸入8~30個字母" class="layui-input">
+                        <input type="password" id="passwordText" name="password" placeholder="請輸入8~30個字母" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item" id="checkPasswordDiv" hidden>
-                    <label class="layui-form-label">確認密碼</label>
+                    <label class="layui-form-label">密碼驗證</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="passwordAgain" id="passwordAgainText" placeholder="再次輸入密碼" class="layui-input">
+                        <input type="password" id="passwordAgainText" name="passwordAgain" placeholder="再次輸入密碼" class="layui-input">
                     </div>
                 </div>
 
-                <button type="button" class="layui-btn layui-btn-danger layui-btn-radius" style="width: 200px" id="submitBtn">進行登錄</button>
+                <div class="hintText">
+                    <span th:text="${msg}" id="msgSpan"></span>
+                </div>
+
+                <button type="submit" class="layui-btn layui-btn-danger layui-btn-radius" id="submitBtn">進行登錄</button>
             </form>
         </div>
 
@@ -67,83 +71,44 @@
             var $ = layui.jquery;
             var form = layui.form;
 
-
             function clearInputText(){
                 $("#usernameText").val("");
                 $("#passwordText").val("");
                 $("#passwordAgainText").val("");
+                $("#msgSpan").text("");
             }
 
             //提交按扭事件
             $("#submitBtn").click(function () {
-                var param = $("#userForm").serialize();
-                checkGoCloudManagement(); //先確認是否已經登錄了，如果已經登錄就轉發。
-                //console.log(param);
-
                 if(state === 'login'){
                     //如果是選擇登入
+                    $("#userForm").prop("action","/user/login");
 
                     //檢查輸入資料格式
                     if($("#usernameText").val().length < 8 || $("#passwordText").val().length < 8 ||
                        $("#usernameText").val().length > 30 || $("#passwordText").val().length > 30){
                         layer.msg("輸入格式錯誤，須為8~30個字母");
                         return false;
+                    }else{
+                        return true;
                     }
-
-                    //向後台進行登錄確認
-                    $.ajax({
-                        url:"/user/login",
-                        dataType:"json",
-                        contentType:"application/x-www-form-urlencoded",
-                        type:"post",
-                        data:param,
-                        success:function (response) {
-                            console.log(response)
-                            if(response.resultCode == 200){
-                                layer.msg("登入失敗，請確認帳號密碼正確");
-                            }else{
-                                checkGoCloudManagement();
-                            }
-                        },
-                        error(){
-                            alert("系統維護中");
-                        }
-                    });
 
                 }else if(state === 'register'){
                     //如果是選擇註冊
+                    $("#userForm").prop("action","/user/register");
 
                     //檢查輸入資料格式
                     if($("#usernameText").val().length < 8 || $("#passwordText").val().length < 8 || $("#passwordAgainText") < 8 ||
                        $("#usernameText").val().length > 30 || $("#passwordText").val().length > 30 || $("#passwordAgainText") > 30){
                         layer.msg("輸入格式錯誤，須為8~30個字母");
                         return false;
+                    }else{
+                        return true;
                     }
-
-                    //向後台進行註冊確認
-                    $.ajax({
-                        url:"/user/register",
-                        dataType:"json",
-                        contentType:"application/x-www-form-urlencoded",
-                        type:"post",
-                        data:param,
-                        success:function (response) {
-                            if(response.resultCode == 100){
-                                layer.msg("註冊成功");
-                                checkGoCloudManagement();
-                            }else if(response.resultCode == 200){
-                                layer.msg("註冊失敗，密碼不符合，或該帳號已經被使用");
-                            }
-                        },
-                        error(){
-                            alert("系統維護中");
-                        }
-                    });
                 }
                 clearInputText();
 
             });
-
 
             //登錄按扭事件
             $("#loginBtn").click(function () {
@@ -160,20 +125,6 @@
                 $("#submitBtn").text("進行註冊");
                 clearInputText();
             });
-            
-            function checkGoCloudManagement() {
-                $.ajax({
-                    url:"/router/checkGoCloudManagement",
-                    datatype:"html",
-                    type:"post",
-                    success:function (response) {
-                        document.write(response);
-                    },
-                    error(){
-                        alert("系統維護中");
-                    }
-                });
-            }
 
         });
 

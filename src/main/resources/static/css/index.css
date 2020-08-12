@@ -70,6 +70,13 @@ body{
     margin-left: 45px;
 }
 
+/*提示文字訊息*/
+.main .main-form .hintText{
+    margin-bottom: 5px;
+    margin-left: 45px;
+    color: red;
+}
+
 
 
 

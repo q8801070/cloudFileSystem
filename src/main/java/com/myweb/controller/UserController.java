@@ -3,15 +3,13 @@ package com.myweb.controller;
 import com.myweb.service.UserService;
 import com.myweb.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import com.myweb.pojo.User;
+
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 處理使用者相關登入、註冊等功能
@@ -25,38 +23,45 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseMessage login(@RequestParam(value = "username")String username,
-                                 @RequestParam(value = "password")String password,
-                                 HttpServletResponse response,
-                                 HttpServletRequest request){
+    public ModelAndView login(@RequestParam("username")String username,
+                              @RequestParam("password")String password,
+                              HttpServletResponse response,
+                              HttpServletRequest request){
 
         boolean result = userService.loginCheck(username, password,request,response);
 
+        ModelAndView modelAndView = new ModelAndView();
         if(result == true){
-            return new ResponseMessage().success();
+            modelAndView.setViewName("cloud-management");
 
-        }else {
-            return new ResponseMessage().error();
-
+        }else if(result == false){
+            modelAndView.setViewName("index");
+            modelAndView.addObject("msg","登入失敗，請確認帳號密碼正確");
         }
 
+        return modelAndView;
 
     }
 
     @PostMapping("/register")
     @ResponseBody
-    public ResponseMessage register(@RequestParam("username")String username,
+    public ModelAndView register(@RequestParam("username")String username,
                            @RequestParam("password")String password,
                            @RequestParam("passwordAgain")String passwordAgain){
 
         boolean result = userService.registerCheck(username,password,passwordAgain);
 
-        if(result == true){
-            return new ResponseMessage().success();
+        ModelAndView modelAndView = new ModelAndView();
 
-        }else {
-            return new ResponseMessage().error();
+        if(result == true){
+            modelAndView.setViewName("cloud-management");
+
+        }else if(result == false){
+            modelAndView.setViewName("index");
+            modelAndView.addObject("msg","註冊失敗，驗證錯誤或帳號重複");
         }
+
+        return modelAndView;
 
     }
 }
