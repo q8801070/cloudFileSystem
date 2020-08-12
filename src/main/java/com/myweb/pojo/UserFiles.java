@@ -5,20 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFilePath {
+//使用者持有的檔案資訊
+public class UserFiles implements Serializable {
 
     private int id;
-
-    private JSONObject document;
-//    private ArrayList<String> image;
-//    private ArrayList<String> video;
-//    private ArrayList<String> music;
-//    private ArrayList<String> others;
-
+    private int store_id;
+    private int current_size;
+    private int max_size;
 
 }
