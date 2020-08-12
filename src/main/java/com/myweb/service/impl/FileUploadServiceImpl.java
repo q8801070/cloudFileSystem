@@ -1,7 +1,7 @@
 package com.myweb.service.impl;
 
 import com.myweb.service.FileUploadService;
-import com.myweb.utils.ResponseMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    private static String UPLOADED_FOLDER = "C:\\Users\\User\\Desktop\\cloud\\";
+    @Value("${mycloud.upload-folder}")
+    private String UPLOADED_FOLDER;
 
     @Override
     public boolean fileUpload(MultipartFile[] uploadfiles) {
@@ -27,8 +28,6 @@ public class FileUploadServiceImpl implements FileUploadService {
                 uploadfiles).map(x -> x.getOriginalFilename())
                 .filter(x -> !StringUtils.isEmpty(x))
                 .collect(Collectors.joining(","));
-
-        System.out.println(uploadedFileName);
 
         //如果沒收到檔案
         if(StringUtils.isEmpty(uploadedFileName)){

@@ -9,3 +9,7 @@ spring:
 #配置靜態資源路徑
   resources:
     static-locations: classpath:/ #只要是static裡面的資源，要從根目錄(resources底下)開始找
+
+#配置自定義路徑
+mycloud:
+  upload-folder: C:\Users\User\Desktop\cloud\

@@ -31,7 +31,8 @@ public class TestMybatis {
 
     @Test
     public void TestUserFilePath(){
-
+        User user = userMapper.selectByUsername("123");
+        System.out.println(user);
 
     }
 

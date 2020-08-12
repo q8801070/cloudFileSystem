@@ -4,10 +4,12 @@ import com.myweb.service.UserService;
 import com.myweb.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 處理使用者相關登入、註冊等功能
@@ -21,8 +23,12 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseMessage login(@RequestParam(value = "username",required = false)String username,
-                        @RequestParam(value = "password",required = false)String password){
+    public ResponseMessage login(@RequestParam(value = "username")String username,
+                                 @RequestParam(value = "password")String password,
+                                 HttpServletResponse response,
+                                 HttpServletRequest request){
+
+        System.out.println("here");
 
         boolean result = userService.loginCheck(username, password);
 
@@ -31,6 +37,7 @@ public class UserController {
 
         }else {
             return new ResponseMessage().error();
+
         }
 
 
@@ -52,7 +59,6 @@ public class UserController {
         }
 
     }
-
 }
 
 
