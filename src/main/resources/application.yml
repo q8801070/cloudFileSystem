@@ -12,6 +12,13 @@ spring:
     static-locations: classpath:/ #只要是static裡面的資源，要從根目錄(resources底下)開始找
 
 
+#配置單次上傳容量限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+
+
 #配置自定義路徑
 mycloud:
   upload-folder: C:\Users\User\Desktop\cloud\

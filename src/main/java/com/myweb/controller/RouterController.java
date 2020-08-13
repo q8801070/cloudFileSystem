@@ -1,6 +1,8 @@
 package com.myweb.controller;
 
 
+import com.myweb.utils.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +21,14 @@ import com.myweb.pojo.User;
 @RequestMapping("/router")
 public class RouterController {
 
-    @Value("${mysession.user}")
-    private String USER_SESSION;
+    @Autowired
+    SessionFactory sessionFactory;
+
 
     @PostMapping("/checkGoCloudManagement")
     public String checkGoCloudManagement(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(USER_SESSION);
+        User user = (User) session.getAttribute(sessionFactory.getUserSession());
 
         if(user !=null){
             return "cloud-management";

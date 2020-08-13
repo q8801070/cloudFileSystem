@@ -2,12 +2,15 @@ package com.myweb.controller;
 
 import com.myweb.service.UserService;
 import com.myweb.utils.ResponseMessage;
+import com.myweb.utils.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Autowired
     UserService userService;
@@ -63,6 +69,17 @@ public class UserController {
 
         return modelAndView;
 
+    }
+
+    @GetMapping("/logOut")
+    public String logout(HttpServletRequest request){
+
+        System.out.println("logout");
+
+        HttpSession session = request.getSession();
+        session.removeAttribute(sessionFactory.getUserSession());
+
+        return "index";
     }
 }
 

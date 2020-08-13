@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.io.IOException;
 
 @SpringBootTest
@@ -26,7 +27,21 @@ public class TestUtils {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void TestGetFileSize(){
+        int userFileCurrentSize = fileUtil.getUserFileCurrentSize(1,FileUtil.DOCUMENT);
+        System.out.println(userFileCurrentSize);
+    }
+
+    @Test
+    public void TestGetFileCount(){
+        System.out.println(fileUtil.getUserFileCount(1, FileUtil.IMAGE));
+
+
 
     }
+
 
 }

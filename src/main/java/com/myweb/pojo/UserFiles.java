@@ -15,8 +15,13 @@ import java.util.ArrayList;
 public class UserFiles implements Serializable {
 
     private int id;
-    private int store_id;
-    private int current_size;
-    private int max_size;
+    private int file_id;
+    private String file_name;
+    private int size;
+    private int type;
+    private int download_time;
+    private String postfix;
+
+
 
 }
