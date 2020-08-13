@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-
+/**
+ * 封裝以傳遞使用情況頁面資訊
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

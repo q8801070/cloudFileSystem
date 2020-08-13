@@ -6,10 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+
+/**
+ * 對應資料庫user表
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//使用者資訊
 public class User implements Serializable {
 
     private int id;

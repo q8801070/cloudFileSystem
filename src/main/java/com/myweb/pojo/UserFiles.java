@@ -8,6 +8,10 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
+/**
+ * 對應資料庫user_files表
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

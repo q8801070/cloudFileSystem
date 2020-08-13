@@ -28,6 +28,8 @@ public class FileUploadController {
     @Autowired
     FileUploadService fileUploadService;
 
+
+    //使用者上傳檔案
     @PostMapping("/upload")
     public ResponseMessage upload(@RequestParam("file")MultipartFile[] uploadfiles, HttpServletRequest request){
 

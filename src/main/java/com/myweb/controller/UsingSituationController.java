@@ -25,6 +25,8 @@ public class UsingSituationController {
     @Autowired
     UsingSituationService usingSituationService;
 
+
+    //獲取頁面資訊以刷新
     @PostMapping("/refreshPage")
     @ResponseBody
     public UsingSituationModel refreshPage(HttpServletRequest request){

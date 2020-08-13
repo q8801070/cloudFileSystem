@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+
+/**
+ * 對應資料庫user_store表
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

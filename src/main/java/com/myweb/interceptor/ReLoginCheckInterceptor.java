@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.myweb.pojo.User;
 
+
+//把尚未登錄的人趕到登錄頁面
 public class ReLoginCheckInterceptor implements HandlerInterceptor {
 
     @Autowired

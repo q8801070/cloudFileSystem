@@ -3,6 +3,10 @@ package com.myweb.utils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * Session管理工廠類
+ */
 @Component
 public class SessionFactory {
 

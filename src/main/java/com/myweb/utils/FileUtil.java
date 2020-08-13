@@ -12,19 +12,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * 檔案相關功能
+ * 檔案相關功能工具類
  */
 @Component
 public class FileUtil {
 
     @Value("${mycloud.upload-folder}")
     private String UPLOADED_FOLDER;
-    public static final int DOCUMENT = 1;
-    public static final int IMAGE = 2;
-    public static final int VIDEO = 3;
-    public static final int MUSIC = 4;
-    public static final int OTHER = 5;
-    public static final int ALL = 6;
+    public static final int DOCUMENT = 1; //表示文件類型
+    public static final int IMAGE = 2;  //表示圖片類型
+    public static final int VIDEO = 3; //表示影片類型
+    public static final int MUSIC = 4; //表示音樂類型
+    public static final int OTHER = 5; //表示其他類型
+    public static final int ALL = 6; //表示所有類型
 
 
     //建立使用者儲存空間

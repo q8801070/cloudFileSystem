@@ -23,7 +23,7 @@ public class RouterController {
     @Autowired
     SessionFactory sessionFactory;
 
-
+    //嘗試前往雲端管理頁面
     @PostMapping("/checkGoCloudManagement")
     public String checkGoCloudManagement(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
@@ -36,6 +36,7 @@ public class RouterController {
         }
     }
 
+    //嘗試前往首頁
     @PostMapping("/checkGoIndex")
     public String checkGoIndex(){
         return "index";

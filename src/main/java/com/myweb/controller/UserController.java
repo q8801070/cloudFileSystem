@@ -25,6 +25,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+    //登錄功能
     @PostMapping("/login")
     @ResponseBody
     public ModelAndView login(@RequestParam("username")String username,
@@ -47,6 +49,8 @@ public class UserController {
 
     }
 
+
+    //註冊功能
     @PostMapping("/register")
     @ResponseBody
     public ModelAndView register(@RequestParam("username")String username,
@@ -69,6 +73,8 @@ public class UserController {
 
     }
 
+
+    //登出功能
     @GetMapping("/logOut")
     public String logout(HttpServletRequest request){
 

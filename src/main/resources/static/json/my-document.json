@@ -1,0 +1,24 @@
+{
+    "code": 0
+    ,"msg": "哈囉"
+    ,"count": 101
+    ,"data": [
+    {
+    "imagePath": "/static/images/folder.png",
+    "fileName": "杜甫"
+    ,"postfix": "xianxin@layui.com"
+    ,"employeeID": "11223344",
+     "size": "10001"
+    ,"type": "杜甫"
+    ,"downloadTime": "xianxin@layui.com"
+    },
+    {
+    "imagePath": "/static/images/cloud.png",
+    "fileName": "杜甫"
+    ,"postfix": "xianxin@layui.com"
+    ,"employeeID": "11223344"
+    ,"size": "10001"
+    ,"type": "杜甫"
+    ,"downloadTime": "xianxin@layui.com"
+    }]
+}
