@@ -69,8 +69,11 @@ body{
 .footer{
     background-color: #eceeef;
 
+    text-align: center;
+
     width: 88%;
-    height: 5%;
+    height: 40px;
+    line-height: 40px;
 
     /*置底*/
     position:absolute;

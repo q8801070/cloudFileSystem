@@ -1,10 +1,8 @@
 package com.myweb.controller;
 
 import com.myweb.service.UserService;
-import com.myweb.utils.ResponseMessage;
 import com.myweb.utils.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
