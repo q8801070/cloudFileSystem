@@ -13,10 +13,10 @@ import java.io.Serializable;
 //使用者的檔案倉庫資訊
 public class UserStore implements Serializable {
 
-    private int id;
-    private int store_id;
-    private int current_size;
-    private int max_size;
+    private Integer id;
+    private Integer storeId;
+    private Integer currentSize;
+    private Integer maxSize;
 
 }
 

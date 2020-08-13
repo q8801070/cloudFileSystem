@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class UserFiles implements Serializable {
 
     private int id;
-    private int file_id;
-    private String file_name;
+    private int fileId;
+    private String fileName;
     private int size;
     private int type;
-    private int download_time;
+    private int downloadTime;
     private String postfix;
 
 

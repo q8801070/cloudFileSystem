@@ -1,6 +1,8 @@
 package com.myweb;
 
 
+import com.myweb.model.UsingSituationModel;
+import com.myweb.service.UsingSituationService;
 import com.myweb.utils.FileUtil;
 import com.myweb.pojo.User;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,9 @@ public class TestUtils {
 
     @Autowired
     FileUtil fileUtil;
+
+    @Autowired
+    UsingSituationService usingSituationService;
 
     @Test
     public void TestCreateStore(){
@@ -39,8 +44,18 @@ public class TestUtils {
     public void TestGetFileCount(){
         System.out.println(fileUtil.getUserFileCount(1, FileUtil.IMAGE));
 
+    }
 
+    @Test
+    public void Test(){
+        UsingSituationModel usingSituationModel = usingSituationService.refreshPage(1);
+        System.out.println(usingSituationModel);
+    }
 
+    @Test
+    public void test(){
+        UsingSituationModel usingSituationModel = usingSituationService.refreshPage(1);
+        System.out.println(usingSituationModel);
     }
 
 

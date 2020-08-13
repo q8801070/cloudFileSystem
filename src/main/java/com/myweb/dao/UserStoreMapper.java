@@ -2,6 +2,8 @@ package com.myweb.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.myweb.pojo.UserStore;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository

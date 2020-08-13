@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
 
         //替新使用者創建雲端硬體空間
         UserStore userStore = new UserStore();
-        userStore.setMax_size(1073741824);
-        userStore.setCurrent_size(0);
+        userStore.setMaxSize(1073741824);
+        userStore.setCurrentSize(0);
         userStore.setId(userMapper.selectByUsername(username).getId()); //去資料庫找尋該帳號的使用者，並且創建硬碟空間
         userStoreMapper.insert(userStore);
 

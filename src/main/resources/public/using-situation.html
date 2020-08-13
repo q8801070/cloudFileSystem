@@ -52,7 +52,7 @@
 
     <div style="float: right;padding-right: 10px;">
 
-        <span style="color: green">檔案數量 10</span>
+        <span style="color: green" id="fileCount">檔案數量 10</span>
     </div>
 
 </div>
@@ -65,7 +65,7 @@
     </div>
 
     <div style="float: right;padding-right: 10px;">
-        <span style="color: green">剩餘 500MB</span>
+        <span style="color: green" id="leftSize">剩餘 500MB</span>
     </div>
 
 </div>
@@ -101,8 +101,88 @@
 
     layui.use(['element','form'], function(){
         var $ = layui.jquery;
+        var fileChartData = new Array(5); //用於圓餅圖的各類檔案數量資訊
+        var sizeChartData = new Array(2); //用於圓餅圖的檔案容量資訊
 
         $(function () {
+
+            //檔案分佈數量圖
+            var labels= ['文檔','圖片','影片','音樂','其他'];
+
+            var ctx = document.getElementById('fileTypePie').getContext('2d');
+            var fileChart = new Chart(ctx, {
+                type: 'pie',
+                data : {
+                    labels:labels,
+                    datasets: [{
+                        //預設資料
+                        data:[], //按照labels的資料索引位置對應
+                        backgroundColor: [
+                            //資料顏色
+                            "#00A1FF",
+                            "#ff0004",
+                            "#11ff00",
+                            "#c8ff00",
+                            "#c800ff",
+                        ],
+                    }],
+                }
+            });
+            //使用容量圖
+            var labels= ['已使用容量','剩餘容量'];
+
+            var ctx = document.getElementById('fileSizePie').getContext('2d');
+            var fileSizeChart = new Chart(ctx, {
+                type: 'pie',
+                data : {
+                    labels:labels,
+                    datasets: [{
+                        //預設資料
+                        data:[], //按照labels的資料索引位置對應
+                        backgroundColor: [
+                            //資料顏色
+                            "#00A1FF",
+                            "#ff0004",
+                        ],
+                    }],
+                }
+            });
+
+            //直接向後端接收數據
+            $.ajax({
+                url:"/usingSituation/refreshPage", <!--記得最左邊要補斜線，不然路徑會亂-->
+                dataType:"json",
+                type:"post",
+                success:function (response) {
+                    //頁面渲染
+                    console.log(response);
+
+                    $("#fileCount").text("檔案總數 " + response.fileCount);
+                    $("#leftSize").text("剩餘容量 " + Math.floor((response.leftSize)/1024/1024) + " MB");
+
+                    //更新檔案數量圓餅圖資料
+                    fileChart.data.datasets[0].data =
+                        [response.documentCount,
+                        response.imageCount,
+                        response.videoCount,
+                        response.musicCount,
+                        response.otherCount]
+
+                    //更新容量圓餅圖資料
+                    fileSizeChart.data.datasets[0].data =
+                        [Math.floor((response.useSize)/1024/1024),
+                        Math.floor((response.leftSize)/1024/1024)]
+
+                    //更新
+                    fileChart.update();
+                    fileSizeChart.update();
+
+                },
+                error(){
+                    alert("連線逾時，請重新登錄");
+                }
+            });
+
 
 
 
@@ -112,48 +192,7 @@
 
 
 
-    //檔案分佈數量圖
-    var labels= ['文檔','圖片','影片','音樂','其他'];
 
-    var ctx = document.getElementById('fileTypePie').getContext('2d');
-    var pieChart = new Chart(ctx, {
-        type: 'pie',
-        data : {
-            labels:labels,
-            datasets: [{
-                //預設資料
-                data:[1,2,2,4,3], //按照labels的資料索引位置對應
-                backgroundColor: [
-                    //資料顏色
-                    "#00A1FF",
-                    "#ff0004",
-                    "#11ff00",
-                    "#c8ff00",
-                    "#c800ff",
-                ],
-            }],
-        }
-    });
-
-    //使用容量圖
-    var labels= ['已使用容量','剩餘容量'];
-
-    var ctx = document.getElementById('fileSizePie').getContext('2d');
-    var pieChart = new Chart(ctx, {
-        type: 'pie',
-        data : {
-            labels:labels,
-            datasets: [{
-                //預設資料
-                data:[100,1500], //按照labels的資料索引位置對應
-                backgroundColor: [
-                    //資料顏色
-                    "#00A1FF",
-                    "#ff0004",
-                ],
-            }],
-        }
-    });
 
 
 

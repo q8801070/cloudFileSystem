@@ -89,7 +89,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
             //檢查容量
             UserStore userStore = userStoreMapper.selectById(user.getId());
-            if(userStore.getCurrent_size() + file.getBytes().length > userStore.getMax_size()){
+            if(userStore.getCurrentSize() + file.getBytes().length > userStore.getMaxSize()){
                 //如果該檔案超出容量限制
                 continue; //繼續下一個檔案
             }
@@ -108,16 +108,16 @@ public class FileUploadServiceImpl implements FileUploadService {
             //紀錄檔案資訊
             UserFiles userFiles = new UserFiles();
             userFiles.setId(user.getId());
-            userFiles.setFile_name(file.getOriginalFilename());
+            userFiles.setFileName(file.getOriginalFilename());
             userFiles.setType(fileUtil.getFileType(postfix));
-            userFiles.setDownload_time(0);
+            userFiles.setDownloadTime(0);
             userFiles.setSize(fileSize);
             userFiles.setPostfix(postfix);
 
             userFilesMapper.insert(userFiles); //加入該檔案資訊到資料庫
 
             //取得並更新當前檔案量
-            userStore.setCurrent_size(fileUtil.getUserFileCurrentSize(userStore.getId(),FileUtil.ALL));
+            userStore.setCurrentSize(fileUtil.getUserFileCurrentSize(userStore.getId(),FileUtil.ALL));
             userStoreMapper.updateById(userStore);
 
 
