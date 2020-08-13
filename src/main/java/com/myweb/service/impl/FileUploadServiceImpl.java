@@ -112,10 +112,13 @@ public class FileUploadServiceImpl implements FileUploadService {
             userFiles.setType(fileUtil.getFileType(postfix));
             userFiles.setDownload_time(0);
             userFiles.setSize(fileSize);
+            userFiles.setPostfix(postfix);
 
             userFilesMapper.insert(userFiles); //加入該檔案資訊到資料庫
 
-            //增加資料庫硬碟當前使用量
+            //取得並更新當前檔案量
+            userStore.setCurrent_size(fileUtil.getUserFileCurrentSize(userStore.getId(),FileUtil.ALL));
+            userStoreMapper.updateById(userStore);
 
 
             Files.write(path, bytes);

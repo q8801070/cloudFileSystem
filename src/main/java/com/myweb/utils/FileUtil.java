@@ -109,16 +109,20 @@ public class FileUtil {
                 ||".doc".equals(type)||".docx".equals(type)||".pptx".equals(type)
                 ||".wps".equals(type)||".word".equals(type)||".html".equals(type)||".pdf".equals(type)){
             return  1;
+
         }else if (".bmp".equals(type)||".gif".equals(type)||".jpg".equals(type)||".ico".equals(type)||".vsd".equals(type)
                 ||".pic".equals(type)||".png".equals(type)||".jepg".equals(type)||".jpeg".equals(type)||".webp".equals(type)
                 ||".svg".equals(type)){
             return 2;
+
         } else if (".avi".equals(type)||".mov".equals(type)||".qt".equals(type)
                 ||".asf".equals(type)||".rm".equals(type)||".navi".equals(type)||".wav".equals(type)
                 ||".mp4".equals(type)||".mkv".equals(type)||".webm".equals(type)){
             return 3;
+
         } else if (".mp3".equals(type)||".wma".equals(type)){
             return 4;
+
         } else {
             return 5;
         }
