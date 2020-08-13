@@ -4,113 +4,146 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="/static/css/file-upload.css"> <!--引用外部css-->
+    <link rel="stylesheet" href="/static/css/using-situation.css"> <!--引用外部css-->
 
     <link rel="stylesheet" href="/static/layui/css/layui.css"> <!--引用layui css-->
     <script src="/static/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> <!--引入chart.js-->
 
 </head>
 <body>
 
 <div class="header">
 
-    <i class="layui-icon">&#xe67c; 上傳檔案</i>
+    <i class="layui-icon" style="color: #007bff">&#xe62c; 使用情況</i>
 
 </div>
-
-
 
 <div class="bodyRight">
 
-    123
-
-</div>
-
-<div class="bodyLeft">
-
-    <div class="layui-upload">
-
-        <button type="button" class="layui-btn layui-btn-normal" id="testList">選擇多個檔案</button>
-        <button type="button" class="layui-btn" id="testListAction">開始上傳</button>
-        <div class="layui-upload-list">
-            <table class="layui-table">
-                <tr>
-                    <th align="center">檔案名稱</th>
-                    <th>檔案大小</th>
-                    <th>狀態</th>
-                    <th>操作</th>
-                </tr>
-                <tbody id="demoList"></tbody>
-            </table>
+    <div class="layui-carousel" id="test2" style="margin-top: 15px;">
+        <div carousel-item="">
+            <div>条目1</div>
+            <div>条目2</div>
         </div>
-
     </div>
 
 </div>
 
+<div class="bodyMiddle">
+
+    <div style="float:left; padding-left: 15px">
+        <img src="/static/images/document.png">
+    </div>
+
+    <div style="float: right;padding-right: 10px;">
+
+        <span style="color: green">檔案數量 10</span>
+    </div>
+
+</div>
+
+
+<div class="bodyLeft">
+
+    <div style="float:left; padding-left: 15px">
+        <img src="/static/images/folder.png">
+    </div>
+
+    <div style="float: right;padding-right: 10px;">
+        <span style="color: green">剩餘 500MB</span>
+    </div>
+
+</div>
+
+
+
+<div class="bodyLeftDown">
+
+    <div class="fileTypeChart" style="width: 60%; height: 60%; margin-left: 20%">
+        <canvas id="fileTypePie"></canvas>
+    </div>
+
+    <div style="text-align: center; float: bottom; margin-top: 20%; color: green">
+        <span>檔案分佈數量</span>
+    </div>
+
+
+</div>
+
+<div class="bodyMiddleDown">
+
+    <div class="fileSizeChart" style="width: 60%; height: 60%; margin-left: 20%">
+        <canvas id="fileSizePie"></canvas>
+    </div>
+
+    <div style="text-align: center; float: bottom; margin-top: 20%; color: green">
+        <span>容量使用狀態(單位:MB)</span>
+    </div>
+
+</div>
+
+
+
 <script>
 
-    layui.use('upload', function(){
-        var $ = layui.jquery
-            ,upload = layui.upload;
+    layui.use('carousel','element','form', function(){
+        var $ = layui.jquery;
+        var carousel = layui.carousel;
 
-        //多檔案上傳
-        var demoListView = $('#demoList')
-            ,uploadListIns = upload.render({
-            elem: '#testList'
-            ,url: '/fileUpload/upload'
-            ,accept: 'file'
-            ,multiple: true
-            ,auto: false
-            ,bindAction: '#testListAction'
-            ,field: 'file'
-            ,choose: function(obj){
-                var files = this.files = obj.pushFile(); //將每次選取的檔案追加上去
-                //读取本地文件
-                obj.preview(function(index, file, result){
-                    var tr = $(['<tr id="upload-'+ index +'">'
-                        ,'<td>'+ file.name +'</td>'
-                        ,'<td>'+ (file.size/1024).toFixed(1) +'kb</td>'
-                        ,'<td>等待上傳</td>'
-                        ,'<td>'
-                        ,'<button class="layui-btn layui-btn-xs layui-btn-danger demo-delete">删除</button>'
-                        ,'</td>'
-                        ,'</tr>'].join(''));
-
-                    //单个重传
-                    tr.find('.demo-reload').on('click', function(){
-                        obj.upload(index, file);
-                    });
-
-                    //删除
-                    tr.find('.demo-delete').on('click', function(){
-                        delete files[index]; //删除对应的文件
-                        tr.remove();
-                        uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
-                    });
-
-                    demoListView.append(tr);
-                });
-            }
-            ,done: function(res, index, upload){
-                console.log(res);
-                console.log(this);
-                if(true){ //上传成功
-                    var tr = demoListView.find('tr#upload-'+ index)
-                        ,tds = tr.children();
-                    tds.eq(2).html('<span style="color: #5FB878;">上傳成功</span>');
-                    tds.eq(3).html(''); //清空操作
-                    return delete this.files[index]; //刪除隊列中已經上傳成功的檔案
-                }
-                this.error(index, upload);
-            }
-            ,error: function(index, upload){
-                var tr = demoListView.find('tr#upload-'+ index)
-                    ,tds = tr.children();
-                tds.eq(2).html('<span style="color: #FF5722;">上傳失敗</span>');
-            }
+        //改變屬性
+        carousel.render({
+            elem: '#test2'
+            ,interval: 1800
+            ,anim: 'fade'
+            ,height: '120px'
         });
 
+    });
+
+    //檔案分佈數量圖
+    var labels= ['文檔','圖片','影片','音樂','其他'];
+
+    var ctx = document.getElementById('fileTypePie').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data : {
+            labels:labels,
+            datasets: [{
+                //預設資料
+                data:[1,2,2,4,3], //按照labels的資料索引位置對應
+                backgroundColor: [
+                    //資料顏色
+                    "#00A1FF",
+                    "#ff0004",
+                    "#11ff00",
+                    "#c8ff00",
+                    "#c800ff",
+                ],
+            }],
+        }
+    });
+
+
+    //使用容量圖
+    var labels= ['已使用容量','剩餘容量'];
+
+    var ctx = document.getElementById('fileSizePie').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie',
+        data : {
+            labels:labels,
+            datasets: [{
+                //預設資料
+                data:[100,1500], //按照labels的資料索引位置對應
+                backgroundColor: [
+                    //資料顏色
+                    "#00A1FF",
+                    "#ff0004",
+                ],
+            }],
+        }
     });
 
 

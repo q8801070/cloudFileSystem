@@ -18,10 +18,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(LoginInterceptor()).addPathPatterns("/");
-        registry.addInterceptor(ReLoginCheckInterceptor())
-                .addPathPatterns("/**")
-                .excludePathPatterns("/user/**")
-                .excludePathPatterns(EXCLUDE_PATH);
+//        registry.addInterceptor(ReLoginCheckInterceptor())
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/user/**")
+//                .excludePathPatterns(EXCLUDE_PATH);
     }
 
     @Bean

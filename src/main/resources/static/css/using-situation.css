@@ -1,0 +1,115 @@
+html{
+    width: 100%;
+    height: 88%;
+}
+
+body{
+    background-color: #f1f1f6;
+    width: 100%;
+    height: 100%;
+}
+
+/*頂部區塊*/
+.header{
+
+    width: 90%;
+    height: 60px;
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-top: 2%;
+    line-height: 60px;
+
+}
+
+.header .layui-icon{
+    font-size: 30px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+/*中間右側區塊*/
+.bodyRight{
+
+    width: 30%;
+    height: 400px;
+    background-color: #ffffff;
+    margin-right: 5%;
+    margin-top: 2%;
+
+    float: right;
+
+}
+
+/*中間區塊*/
+.bodyMiddle{
+    width: 27%;
+    height: 100px;
+    background-color: #ffffff;
+    margin-right: 3%;
+    margin-top: 2%;
+    line-height: 100px;
+    float: right;
+}
+
+/*中間左側區塊*/
+.bodyLeft{
+
+    width: 27%;
+    height: 100px;
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-top: 2%;
+
+    line-height: 100px;
+    float: left;
+
+}
+
+
+/*左下區塊*/
+.bodyLeftDown{
+
+    width: 27%;
+    height: 300px;
+    background-color: #ffffff;
+    margin-left: 5%;
+    margin-top: 2%;
+    float: left;
+
+}
+
+.bodyLeft .fileTypeChart{
+    width: 60%;
+    height: 60%;
+
+    margin-left: 20%;
+
+}
+
+
+/*中下區塊*/
+.bodyMiddleDown{
+
+    width: 27%;
+    height: 300px;
+    background-color: #ffffff;
+    margin-right: 3%;
+    margin-top: 2%;
+    float: right;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
