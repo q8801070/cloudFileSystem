@@ -7,7 +7,7 @@ import com.myweb.pojo.UserFiles;
 import com.myweb.pojo.UserStore;
 import com.myweb.service.FileUploadService;
 import com.myweb.utils.FileUtil;
-import com.myweb.utils.SessionFactory;
+import com.myweb.utils.ConfigurationFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,11 +29,8 @@ import com.myweb.pojo.User;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    @Value("${mycloud.upload-folder}")
-    private String UPLOADED_FOLDER;
-
     @Autowired
-    SessionFactory sessionFactory;
+    ConfigurationFactory configurationFactory;
 
     @Autowired
     FileUtil fileUtil;
@@ -77,7 +73,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     private boolean saveUploadedFiles(List<MultipartFile> files,HttpServletRequest request) throws IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(sessionFactory.getUserSession());
+        User user = (User) session.getAttribute(configurationFactory.getUserSession());
 
 
         for (MultipartFile file : files) {
@@ -94,21 +90,27 @@ public class FileUploadServiceImpl implements FileUploadService {
                 continue; //繼續下一個檔案
             }
 
+            String thisFileName = file.getOriginalFilename(); //取得檔案名稱
+
             byte[] bytes = file.getBytes();
             //根據id儲存至使用者專屬資料夾
-            Path path = Paths.get(UPLOADED_FOLDER + "/" + user.getId() + "/" + file.getOriginalFilename());
+            if(fileUtil.isFileExist(user.getId(),thisFileName)){
+                //如果該檔案名稱之檔案已經存在
+                thisFileName += System.currentTimeMillis();
+            }
+            Path path = Paths.get(configurationFactory.getUploadFolderPath() + "/" + user.getId() + "/" + thisFileName);
 
             //取得檔案大小
             int fileSize = bytes.length;
 
             //取得副檔名
-            String[] split = file.getOriginalFilename().split("\\.");
-            String postfix = "." + split;
+            String[] split = thisFileName.split("\\.");
+            String postfix = "." + split[1];
 
             //紀錄檔案資訊
             UserFiles userFiles = new UserFiles();
             userFiles.setId(user.getId());
-            userFiles.setFileName(file.getOriginalFilename());
+            userFiles.setFileName(thisFileName);
             userFiles.setType(fileUtil.getFileType(postfix));
             userFiles.setDownloadTime(0);
             userFiles.setSize(fileSize);
@@ -116,10 +118,9 @@ public class FileUploadServiceImpl implements FileUploadService {
 
             userFilesMapper.insert(userFiles); //加入該檔案資訊到資料庫
 
-            //取得並更新當前檔案量
+            //取得並更新當前檔案容量
             userStore.setCurrentSize(fileUtil.getUserFileCurrentSize(userStore.getId(),FileUtil.ALL));
             userStoreMapper.updateById(userStore);
-
 
             Files.write(path, bytes);
         }

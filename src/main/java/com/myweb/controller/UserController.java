@@ -1,7 +1,7 @@
 package com.myweb.controller;
 
 import com.myweb.service.UserService;
-import com.myweb.utils.SessionFactory;
+import com.myweb.utils.ConfigurationFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
     @Autowired
-    SessionFactory sessionFactory;
+    ConfigurationFactory configurationFactory;
 
     @Autowired
     UserService userService;
@@ -81,7 +81,7 @@ public class UserController {
         System.out.println("logout");
 
         HttpSession session = request.getSession();
-        session.removeAttribute(sessionFactory.getUserSession());
+        session.removeAttribute(configurationFactory.getUserSession());
 
         return "index";
     }

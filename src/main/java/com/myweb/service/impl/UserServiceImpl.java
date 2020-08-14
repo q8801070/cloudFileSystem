@@ -1,15 +1,13 @@
 package com.myweb.service.impl;
 
-import com.myweb.dao.UserFilesMapper;
 import com.myweb.dao.UserMapper;
 import com.myweb.dao.UserStoreMapper;
 import com.myweb.pojo.User;
 import com.myweb.pojo.UserStore;
 import com.myweb.service.UserService;
 import com.myweb.utils.FileUtil;
-import com.myweb.utils.SessionFactory;
+import com.myweb.utils.ConfigurationFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Autowired
-    SessionFactory sessionFactory;
+    ConfigurationFactory configurationFactory;
 
     @Autowired
     private UserMapper userMapper;
@@ -49,7 +47,7 @@ public class UserServiceImpl implements UserService {
             if(username.equals(user.getUsername()) && password.equals(user.getPassword())){
                 //建立Session
                 HttpSession session = request.getSession();
-                session.setAttribute(sessionFactory.getUserSession(),userMapper.selectById(user));
+                session.setAttribute(configurationFactory.getUserSession(),userMapper.selectById(user));
 
                 return true;
             }

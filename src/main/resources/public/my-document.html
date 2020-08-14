@@ -39,8 +39,8 @@
 
     <div id="userBar" style="display: none;"> <!--display:none 預設不會顯示 要透過script顯示-->
 
-        <a class="layui-btn layui-btn-xs" lay-event="edit">編輯</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">刪除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="download">下載</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">刪除</a>
 
     </div>
 
@@ -57,46 +57,75 @@
         var $ = layui.jquery;
         var layer = layui.layer;
         var table = layui.table;
-        var form = layui.form;
 
         var tableIns; //數據表格
-        var template; //圖片路徑
+
+        reloadTable(); //讀取表格
 
         function reloadTable() {
             tableIns = table.render({
                 elem:'#userTable'  //渲染的目標對象
-                ,url:'/static/json/my-document.json' //API
+                ,url:'/autoSortFile/reloadTable/6' //API
                 ,dataType:"json"
                 ,type:'post'
                 ,title:'使用者數據表' //數據導出的標題
                 ,text:"無數據"
                 ,cellMinWidth:'100' //設置列的最小預設寬度
                 ,done:function (res,curr,count) {
+
+                    console.log(count);
+                    console.log(res);
+
+                    //沒有數據時的顯示結果
+                    if (res.count == 0)
+                    {
+                        $(".layui-table-main").html('<div class="layui-none layui-icon">目前無檔案</div>');
+                    }
+
+                    //動態調整背後白色背景
+                    $(".bodyleft").height(120 +res.data.length * 75);
+
                 }
                 ,page: false //是否啟用分頁
                 ,cols: [[ //列表數據
                     // {type: 'checkbox' ,fixed: 'left'} //特殊種類時用到type
-                    {field:'imagePath', title:'資料夾圖片 等等加',align: 'center',templet:function (d) { //d為該次Json數據返回值
+                    {field:'imagePath', title:'',align: 'center',templet:function (d) { //d為該次Json數據返回值
                         return '<div>' + '<img src="' + d.imagePath +'"></div>'; //拼接模板
                         }
                       }
                     ,{field:'fileName', title:'檔案名稱',align: 'center'}
                     ,{field:'postfix', title:'副檔名',align: 'center'}
                     ,{field:'size', title:'檔案大小', align:"center"}//align:表示位置 //edit表示是否可以對表格直接編輯
-                    ,{field:'type', title:'檔案類型',align:"center"}
+                    ,{field:'fileType', title:'檔案類型',align:"center"}
                     ,{field:'downloadTime', title:'下載次數', align: 'center'}
                     ,{fixed: 'right', title: '操作', toolbar: '#userBar', align: 'center'}
                 ]]
             });
         }
 
+        //監聽行工具事件
+        table.on("tool(userTable)",function (obj) {
 
+            var data = obj.data;
+            var layEvent = obj.event;
 
-        reloadTable();
+            console.log(data);
 
-        $(function () {
+            if(layEvent === 'download'){
+                downloadFile(data.fileName);
 
+            }else if(layEvent === 'delete'){
+                deleteFile(data.fileName);
+            }
         });
+
+        function downloadFile(fileName) {
+            window.location.href="/autoSortFile/download/" + fileName;
+        }
+
+        function deleteFile(fileName) {
+            window.location.href="/autoSortFile/download/" + fileName;
+        }
 
     });
 

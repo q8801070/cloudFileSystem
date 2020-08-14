@@ -26,6 +26,30 @@ public class FileUtil {
     public static final int OTHER = 5; //表示其他類型
     public static final int ALL = 6; //表示所有類型
 
+    //取得檔案類型 1文檔 2圖片 3影片 4音樂 5其他
+    public int getFileType(String type){
+        if (".chm".equals(type)||".txt".equals(type)||".xmind".equals(type)||".xlsx".equals(type)||".md".equals(type)
+                ||".doc".equals(type)||".docx".equals(type)||".pptx".equals(type)
+                ||".wps".equals(type)||".word".equals(type)||".html".equals(type)||".pdf".equals(type)){
+            return  1;
+
+        }else if (".bmp".equals(type)||".gif".equals(type)||".jpg".equals(type)||".ico".equals(type)||".vsd".equals(type)
+                ||".pic".equals(type)||".png".equals(type)||".jepg".equals(type)||".jpeg".equals(type)||".webp".equals(type)
+                ||".svg".equals(type)){
+            return 2;
+
+        } else if (".avi".equals(type)||".mov".equals(type)||".qt".equals(type)
+                ||".asf".equals(type)||".rm".equals(type)||".navi".equals(type)||".wav".equals(type)
+                ||".mp4".equals(type)||".mkv".equals(type)||".webm".equals(type)){
+            return 3;
+
+        } else if (".mp3".equals(type)||".wma".equals(type)){
+            return 4;
+
+        } else {
+            return 5;
+        }
+    }
 
     //建立使用者儲存空間
     public void createUserStore(User user) throws IOException {
@@ -102,31 +126,34 @@ public class FileUtil {
 
     }
 
+    //檢查指定id身份者資料夾內，指定名稱的檔案是否存在。
+    public boolean isFileExist(int id,String fileName){
+        //取得使用者資料夾路徑
+        File path = new File(UPLOADED_FOLDER + "/" + id);
 
-    //取得檔案類型 1文檔 2圖片 3影片 4音樂 5其他
-    public int getFileType(String type){
-        if (".chm".equals(type)||".txt".equals(type)||".xmind".equals(type)||".xlsx".equals(type)||".md".equals(type)
-                ||".doc".equals(type)||".docx".equals(type)||".pptx".equals(type)
-                ||".wps".equals(type)||".word".equals(type)||".html".equals(type)||".pdf".equals(type)){
-            return  1;
-
-        }else if (".bmp".equals(type)||".gif".equals(type)||".jpg".equals(type)||".ico".equals(type)||".vsd".equals(type)
-                ||".pic".equals(type)||".png".equals(type)||".jepg".equals(type)||".jpeg".equals(type)||".webp".equals(type)
-                ||".svg".equals(type)){
-            return 2;
-
-        } else if (".avi".equals(type)||".mov".equals(type)||".qt".equals(type)
-                ||".asf".equals(type)||".rm".equals(type)||".navi".equals(type)||".wav".equals(type)
-                ||".mp4".equals(type)||".mkv".equals(type)||".webm".equals(type)){
-            return 3;
-
-        } else if (".mp3".equals(type)||".wma".equals(type)){
-            return 4;
-
-        } else {
-            return 5;
+        //獲取路徑下所有檔案
+        File[] files = path.listFiles();
+        for (File file : files) {
+            String name = file.getName();
+            if(name.equals(fileName)){
+                return true; //檔案已經存在
+            }
         }
+
+        return false; //檔案不存在
     }
+
+//    public boolean downloadFileByIdAndFilename(int id,String filename){
+//        File file = new File(UPLOADED_FOLDER + "/" + id + "/" + filename);
+//        if(!file.exists()){
+//            return
+//        }
+//
+//
+//    }
+
+
+
 
 }
 

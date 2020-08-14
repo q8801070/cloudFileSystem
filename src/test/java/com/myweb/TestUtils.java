@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.File;
 import java.io.IOException;
 
 @SpringBootTest
@@ -58,5 +57,30 @@ public class TestUtils {
         System.out.println(usingSituationModel);
     }
 
+    @Test
+    public void testFileExist(){
+        boolean fileExist = fileUtil.isFileExist(1, "clod.png");
+        System.out.println(fileExist);
+    }
+
+    @Test
+    public void testGetTime(){
+        System.out.println(System.currentTimeMillis());
+    }
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

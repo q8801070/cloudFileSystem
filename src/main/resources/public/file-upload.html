@@ -18,8 +18,6 @@
 
     </div>
 
-
-
     <div class="bodyRight">
 
         123
@@ -66,7 +64,7 @@
                 ,field: 'file'
                 ,choose: function(obj){
                     var files = this.files = obj.pushFile(); //將每次選取的檔案追加上去
-                    //读取本地文件
+                    //讀取本地檔案
                     obj.preview(function(index, file, result){
                         var tr = $(['<tr id="upload-'+ index +'">'
                             ,'<td>'+ file.name +'</td>'
@@ -77,16 +75,16 @@
                             ,'</td>'
                             ,'</tr>'].join(''));
 
-                        //单个重传
+                        //重傳
                         tr.find('.demo-reload').on('click', function(){
                             obj.upload(index, file);
                         });
 
-                        //删除
+                        //刪除
                         tr.find('.demo-delete').on('click', function(){
-                            delete files[index]; //删除对应的文件
+                            delete files[index]; //刪除對應檔案
                             tr.remove();
-                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                            uploadListIns.config.elem.next()[0].value = ''; //清除input file值，避免刪除後出現同名文件不可選
                         });
 
                         demoListView.append(tr);
@@ -112,8 +110,6 @@
             });
 
         });
-
-
 
     </script>
 

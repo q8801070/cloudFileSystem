@@ -1,6 +1,6 @@
 package com.myweb.interceptor;
 
-import com.myweb.utils.SessionFactory;
+import com.myweb.utils.ConfigurationFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,7 +14,7 @@ import com.myweb.pojo.User;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
-    SessionFactory sessionFactory;
+    ConfigurationFactory configurationFactory;
 
 
     @Override
@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //獲取session
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(sessionFactory.getUserSession());
+        User user = (User) session.getAttribute(configurationFactory.getUserSession());
 
         //判斷該session是否已經有用戶在使用
         if(user != null){

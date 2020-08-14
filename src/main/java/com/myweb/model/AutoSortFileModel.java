@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -16,12 +18,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class AutoSortFileModel implements Serializable {
 
-    private String imagePath;
-    private String fileName;
-    private String postfix;
-    private String size;
-    private String downloadTime;
-    private String type;
+    private int code;
+    private String msg;
+    private int count;
+    private ArrayList<HashMap<String,Object>> data = new ArrayList<>();
+
+//    private String imagePath;
+//    private String fileName;
+//    private String postfix;
+//    private String size;
+//    private String downloadTime;
+//    private String type;
 
 }
 

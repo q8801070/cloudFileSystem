@@ -1,6 +1,6 @@
 package com.myweb.interceptor;
 
-import com.myweb.utils.SessionFactory;
+import com.myweb.utils.ConfigurationFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,13 +14,13 @@ import com.myweb.pojo.User;
 public class ReLoginCheckInterceptor implements HandlerInterceptor {
 
     @Autowired
-    SessionFactory sessionFactory;
+    ConfigurationFactory configurationFactory;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute(sessionFactory.getUserSession());
+        User user = (User)session.getAttribute(configurationFactory.getUserSession());
 
         if(user == null){
             request.getRequestDispatcher("/templates/index.html").forward(request,response);
