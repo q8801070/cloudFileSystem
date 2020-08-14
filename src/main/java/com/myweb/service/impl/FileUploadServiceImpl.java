@@ -95,8 +95,11 @@ public class FileUploadServiceImpl implements FileUploadService {
             byte[] bytes = file.getBytes();
             //根據id儲存至使用者專屬資料夾
             if(fileUtil.isFileExist(user.getId(),thisFileName)){
-                //如果該檔案名稱之檔案已經存在
-                thisFileName += System.currentTimeMillis();
+                //如果該檔案名稱之檔案已經存在，通過時間戳重組檔案名
+                String[] nameArray = thisFileName.split("\\.");
+
+                thisFileName = nameArray[0] + System.currentTimeMillis() + "." + nameArray[1];
+                System.out.println(thisFileName);
             }
             Path path = Paths.get(configurationFactory.getUploadFolderPath() + "/" + user.getId() + "/" + thisFileName);
 

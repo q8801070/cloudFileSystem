@@ -15,4 +15,9 @@ public interface AutoSortFileService {
     public boolean downloadFile(HttpServletRequest request,
                                 HttpServletResponse response,
                                 String fileName);
+
+    //檔案刪除
+    public boolean deleteFile(HttpServletRequest request,
+                                HttpServletResponse response,
+                                String fileName);
 }

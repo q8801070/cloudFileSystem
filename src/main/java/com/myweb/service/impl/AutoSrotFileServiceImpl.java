@@ -77,6 +77,7 @@ public class AutoSrotFileServiceImpl implements AutoSortFileService {
         return autoSortFileModel;
     }
 
+
     //檔案下載
     @Override
     public boolean downloadFile(HttpServletRequest request,
@@ -118,8 +119,49 @@ public class AutoSrotFileServiceImpl implements AutoSortFileService {
             e.printStackTrace();
             return false;
         }
+//
+//        //更新下載次數，之後加
+//        UserFiles userFiles = userFilesMapper.selectFileByIdAndFileName(user.getId(), fileName);
+//        userFiles.setDownloadTime(userFiles.getDownloadTime() + 1);
+//
+//        System.out.println(userFiles);
+//
+//        userFilesMapper.updateById(userFiles);
 
         return true;
+    }
+
+    //檔案刪除
+    @Override
+    public boolean deleteFile(HttpServletRequest request, HttpServletResponse response, String fileName) {
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute(configurationFactory.getUserSession());
+
+        //避免有人透過目錄路徑查其他資料夾的檔案
+        if(fileName.contains("/")){
+            return false;
+        }else if(fileName.equals("")){
+            return false;
+        }
+
+
+        File file = new File(configurationFactory.getUploadFolderPath() +'/'+ user.getId() + "/" +fileName);
+        if(!file.exists()){
+            return false; //檔案不存在 刪除失敗
+        }else{
+            try{
+                file.delete();
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+            //更新資料庫字段
+            userFilesMapper.deleteFileByIdAndFileName(user.getId(),fileName);
+
+            return true; //刪除成功
+        }
+
     }
 
 

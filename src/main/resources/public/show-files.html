@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="/static/css/my-document.css"> <!--引用外部css-->
+    <link rel="stylesheet" href="/static/css/show-files.css"> <!--引用外部css-->
 
     <link rel="stylesheet" href="/static/layui/css/layui.css"> <!--引用layui css-->
     <script src="/static/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
@@ -97,7 +97,7 @@
                     ,{field:'postfix', title:'副檔名',align: 'center'}
                     ,{field:'size', title:'檔案大小', align:"center"}//align:表示位置 //edit表示是否可以對表格直接編輯
                     ,{field:'fileType', title:'檔案類型',align:"center"}
-                    ,{field:'downloadTime', title:'下載次數', align: 'center'}
+                    // ,{field:'downloadTime', title:'下載次數', align: 'center'}
                     ,{fixed: 'right', title: '操作', toolbar: '#userBar', align: 'center'}
                 ]]
             });
@@ -109,8 +109,6 @@
             var data = obj.data;
             var layEvent = obj.event;
 
-            console.log(data);
-
             if(layEvent === 'download'){
                 downloadFile(data.fileName);
 
@@ -121,10 +119,23 @@
 
         function downloadFile(fileName) {
             window.location.href="/autoSortFile/download/" + fileName;
+            reloadTable();
         }
 
         function deleteFile(fileName) {
-            window.location.href="/autoSortFile/download/" + fileName;
+
+            $.ajax({
+                url:'/autoSortFile/delete/' + fileName
+                ,dataType:"json"
+                ,type:'post'
+                ,success(response){
+                    console.log(response);
+                },error(){
+
+                }
+            });
+
+            reloadTable();
         }
 
     });

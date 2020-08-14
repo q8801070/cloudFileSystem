@@ -2,6 +2,7 @@ package com.myweb.utils;
 
 
 import com.myweb.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,10 @@ import java.nio.file.Paths;
 @Component
 public class FileUtil {
 
-    @Value("${mycloud.upload-folder}")
-    private String UPLOADED_FOLDER;
+    @Autowired
+    ConfigurationFactory configurationFactory;
+
+
     public static final int DOCUMENT = 1; //表示文件類型
     public static final int IMAGE = 2;  //表示圖片類型
     public static final int VIDEO = 3; //表示影片類型
@@ -54,9 +57,9 @@ public class FileUtil {
     //建立使用者儲存空間
     public void createUserStore(User user) throws IOException {
         //建立的資料夾名稱為使用者的id
-        Path p = Paths.get(UPLOADED_FOLDER + user.getId());
+        Path p = Paths.get(configurationFactory.getUploadFolderPath() + user.getId());
 
-        System.out.println("UPLOAD_FOLDER + user.getId()=" + UPLOADED_FOLDER + user.getId());
+        System.out.println("UPLOAD_FOLDER + user.getId()=" + configurationFactory.getUploadFolderPath() + user.getId());
         System.out.println("p=" + p);
 
         //檢查資料夾是否已經存在
@@ -74,7 +77,7 @@ public class FileUtil {
         int totalsize = 0;
 
         //取得使用者資料夾路徑
-        File path = new File(UPLOADED_FOLDER + "/" + id);
+        File path = new File(configurationFactory.getUploadFolderPath() + "/" + id);
 
         //獲取路徑下所有檔案
         File[] files = path.listFiles();
@@ -103,7 +106,7 @@ public class FileUtil {
         int count = 0;
 
         //取得使用者資料夾路徑
-        File path = new File(UPLOADED_FOLDER + "/" + id);
+        File path = new File(configurationFactory.getUploadFolderPath() + "/" + id);
 
         //獲取路徑下所有檔案
         File[] files = path.listFiles();
@@ -129,7 +132,7 @@ public class FileUtil {
     //檢查指定id身份者資料夾內，指定名稱的檔案是否存在。
     public boolean isFileExist(int id,String fileName){
         //取得使用者資料夾路徑
-        File path = new File(UPLOADED_FOLDER + "/" + id);
+        File path = new File(configurationFactory.getUploadFolderPath() + "/" + id);
 
         //獲取路徑下所有檔案
         File[] files = path.listFiles();
