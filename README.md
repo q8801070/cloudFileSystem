@@ -9,7 +9,7 @@
     
 # 使用技術一覽
 
-前端運用
+前端相關
 ---
 * HTML
 * CSS
@@ -17,7 +17,7 @@
 * JQUERY+AJAX
 * LAYUI
 
-後端運用
+後端相關
 ---
 * Springboot
 * Mybatis + MybatisPlus
@@ -99,8 +99,6 @@
 * https://www.flaticon.com/free-icon/cloud-computing_818971?term=cloud&page=2&position=11
 * https://www.flaticon.com/free-icon/file_573263?term=Folder%20document&page=2&position=2
 * https://www.flaticon.com/free-icon/picture_603496?term=image&page=1&position=37
-
-
 
 
 
