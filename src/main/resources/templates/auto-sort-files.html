@@ -22,7 +22,7 @@
 <body>
 
 <div class="header">
-    <i class="layui-icon" style="color: #007bff;font-weight: bold">&#xe62c; 使用情況</i>
+    <i class="layui-icon" style="color: #007bff;font-weight: bold">&#xe62c; <span id="titleText"></span></i>
 
 </div>
 
@@ -54,12 +54,13 @@
 
     layui.use(['element','jquery','layer','form','table','laydate'],function () {
         var $ = layui.jquery;
-        var layer = layui.layer;
         var table = layui.table;
 
         var tableIns; //數據表格
 
         reloadTable(); //讀取表格
+        refreshPage(); //更新標題字段
+
 
         //獲取Cookie
         function getCookie(keyName) {
@@ -75,6 +76,26 @@
             return "";
         }
 
+        //更新頁面
+        function refreshPage() {
+            console.log(getCookie("showFilePageNumber"));
+
+            if(getCookie("showFilePageNumber") == 1){
+                $("#titleText").text("我的文件");
+            } else if(getCookie("showFilePageNumber") == 2){
+                $("#titleText").text("我的圖片");
+            } else if(getCookie("showFilePageNumber") == 3){
+                $("#titleText").text("我的影片");
+            } else if(getCookie("showFilePageNumber") == 4){
+                $("#titleText").text("我的音樂");
+            } else if(getCookie("showFilePageNumber") == 5){
+                $("#titleText").text("其他文件");
+            } else if(getCookie("showFilePageNumber") == 6){
+                $("#titleText").text("所有檔案");
+            }
+
+        }
+
         //更新表格
         function reloadTable() {
             tableIns = table.render({
@@ -86,9 +107,6 @@
                 ,text:"無數據"
                 ,cellMinWidth:'100' //設置列的最小預設寬度
                 ,done:function (res,curr,count) {
-
-                    console.log(count);
-                    console.log(res);
 
                     //沒有數據時的顯示結果
                     if (res.count == 0)
@@ -144,7 +162,6 @@
                 ,dataType:"json"
                 ,type:'post'
                 ,success(response){
-                    console.log(response);
                 },error(){
 
                 }

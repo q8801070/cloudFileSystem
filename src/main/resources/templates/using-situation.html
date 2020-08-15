@@ -25,15 +25,16 @@
     <div style="margin-top: 20px;margin-left: 20px; margin-right: 20px; font-weight: bold; color: #4a7cea">
         系統簡介
         <div style="color: black; margin-top: 40px">
-            雲端檔案管理系統，個人開發的檔案線上儲存服務。
+            2020/08/11開始建立<br>
+            雲端檔案管理系統，個人練習而開發檔案線上儲存服務。
             <hr style="width: 95%">
             使用者可以上傳文件至雲端硬碟中，隨時隨地經由網站以進行控管。 目前限制單一使用者檔案儲存為1GB。<br><br>
 
             此為個人練習專案，網站功能將會持續進行更新與擴展。<br><br>
 
-            若有意參觀並試用本網站，請聯絡開發者，由於伺服器經常更新， 不會長時間部署網站，以方便維護與擴展。<br><br>
+            本網站用於練習，還在持續更新中，目前功能尚不完善，每天會花部份時間進行維護與擴展。<br><br>
 
-            特別感謝網路上所有的免費圖片提供者，及開源項目分享者，請至<span style="color: #0073ff">幫助頁面</span>觀看相關內容。
+            特別感謝網路上所有的免費圖片提供者，及開源項目分享者，請至Github<span style="color: #0073ff">參考資料</span>觀看相關內容。
 
             <hr style="width: 95%"> <br>
             COPYRIGHT © 2020 版權所有 張景翔
@@ -101,8 +102,7 @@
 
     layui.use(['element','form'], function(){
         var $ = layui.jquery;
-        var fileChartData = new Array(5); //用於圓餅圖的各類檔案數量資訊
-        var sizeChartData = new Array(2); //用於圓餅圖的檔案容量資訊
+
 
         $(function () {
 
@@ -155,7 +155,6 @@
                 type:"post",
                 success:function (response) {
                     //頁面渲染
-                    console.log(response);
 
                     $("#fileCount").text("檔案總數 " + response.fileCount);
                     $("#leftSize").text("剩餘容量 " + Math.floor((response.leftSize)/1024/1024) + " MB");
@@ -182,8 +181,6 @@
                     alert("連線逾時，請重新登錄");
                 }
             });
-
-
 
 
         });

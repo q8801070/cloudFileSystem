@@ -26,6 +26,8 @@ public class UserController {
     UserService userService;
 
 
+
+
     //登錄功能
     @RequestMapping("/login")
     @ResponseBody
@@ -57,14 +59,16 @@ public class UserController {
     @ResponseBody
     public ModelAndView register(@RequestParam("username")String username,
                            @RequestParam("password")String password,
-                           @RequestParam("passwordAgain")String passwordAgain){
+                           @RequestParam("passwordAgain")String passwordAgain,
+                                 HttpServletRequest request){
 
-        boolean result = userService.registerCheck(username,password,passwordAgain);
+        boolean result = userService.registerCheck(username,password,passwordAgain,request);
 
         ModelAndView modelAndView = new ModelAndView();
 
         if(result == true){
-            modelAndView.setViewName("cloud-management");
+            modelAndView.setViewName("index");
+            modelAndView.addObject("msg","註冊成功，您現在可以進行登錄");
 
         }else if(result == false){
             modelAndView.setViewName("index");

@@ -14,13 +14,30 @@
 
     <div class="header">
 
-        <i class="layui-icon">&#xe67c; 上傳檔案</i>
+        <i class="layui-icon" style="color: #007bff">&#xe67c; 上傳檔案</i>
 
     </div>
 
     <div class="bodyRight">
 
-        123
+        <div style="margin-top: 20px;margin-left: 20px; margin-right: 20px; font-weight: bold; color: #4a7cea">
+            預計增加功能
+            <div style="color: black; margin-top: 40px">
+                2020/08/15更新
+                <hr style="width: 95%">
+                1.新增更多功能頁面<br><br>
+
+                2.增加可以透過資料夾管理檔案<br><br>
+
+                3.增加第三方網站登錄功能<br><br>
+
+                4.增加管理員功能<br><br>
+
+                <hr style="width: 95%"> <br>
+                COPYRIGHT © 2020 版權所有 張景翔
+            </div>
+
+        </div>
 
     </div>
 
@@ -51,7 +68,6 @@
         layui.use('upload', function(){
             var $ = layui.jquery
                 ,upload = layui.upload;
-
             //多檔案上傳
             var demoListView = $('#demoList')
                 ,uploadListIns = upload.render({
@@ -91,8 +107,7 @@
                     });
                 }
                 ,done: function(res, index, upload){
-                    console.log(res);
-                    console.log(this);
+
                     if(true){ //上传成功
                         var tr = demoListView.find('tr#upload-'+ index)
                             ,tds = tr.children();

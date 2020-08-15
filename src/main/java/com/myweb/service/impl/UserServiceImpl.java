@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerCheck(String username, String password, String passwordAgain){
+    public boolean registerCheck(String username, String password, String passwordAgain,HttpServletRequest request){
 
         List<User> users = userMapper.selectList(null);
 
@@ -86,6 +86,10 @@ public class UserServiceImpl implements UserService {
 
         userMapper.insert(user);
 
+        //session增添使用者
+        HttpSession session = request.getSession();
+        session.setAttribute(configurationFactory.getUserSession(),user);
+
         //替新使用者創建雲端硬體空間
         UserStore userStore = new UserStore();
         userStore.setMaxSize(1073741824);
@@ -95,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
         //建立專屬資料夾
         try {
-            fileUtil.createUserStore(user);
+            fileUtil.createUserStore(userMapper.selectByUsername(username));
         } catch (IOException e) {
             e.printStackTrace();
         }

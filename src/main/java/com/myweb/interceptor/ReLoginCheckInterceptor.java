@@ -19,14 +19,12 @@ public class ReLoginCheckInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("攔截");
-
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(configurationFactory.getUserSession());
 
         if(user == null){
             System.out.println("here");
-            request.getRequestDispatcher("/templates/index.html").forward(request,response);
+            request.getRequestDispatcher("/router/checkGoIndex").forward(request,response);
             return false;
         }else{
             return true;

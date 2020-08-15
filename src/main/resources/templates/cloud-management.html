@@ -18,10 +18,9 @@
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <i class="layui-icon" style="font-size: 17px">&#xe770; &nbsp 使用者</i>
+                <span class="layui-icon" style="font-size: 17px" id="userNameText">&#xe770; &nbsp 使用者</span>
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="">基本資料</a></dd>
                 <dd><a href="/user/logOut">登出</a></dd>
             </dl>
         </li>
@@ -62,32 +61,32 @@
                 <dd>
                     <a href="javascript:;" id="myDocumentBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe621; &nbsp 我的文件</i>
-                        <span class="layui-badge">0</span>
+                        <span class="layui-badge" id="myDocumentText">0</span>
                     </a>
                 </dd>
                 <dd>
                     <a href="javascript:;" id="myImageBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe64a; &nbsp 我的圖片</i>
-                        <span class="layui-badge">0</span>
+                        <span class="layui-badge" id="myImageText">0</span>
                     </a>
                 </dd>
 
                 <dd>
                     <a href="javascript:;" id="myVideoBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe6ed; &nbsp 我的影片</i>
-                        <span class="layui-badge">0</span>
+                        <span class="layui-badge" id="myVideoText">0</span>
                     </a>
                 </dd>
                 <dd>
                     <a href="javascript:;" id="myMusicBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe6fc; &nbsp 我的音樂</i>
-                        <span class="layui-badge">0</span>
+                        <span class="layui-badge" id="myMusicText">0</span>
                     </a>
                 </dd>
                 <dd>
                     <a href="javascript:;" id="otherDocumentBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe630; &nbsp 其他文件</i>
-                        <span class="layui-badge">0</span>
+                        <span class="layui-badge" id="otherDocumentText">0</span>
                     </a>
                 </dd>
             </dl>
@@ -125,29 +124,36 @@
 </div>
 <!--底部區塊結束-->
 
-
-
 <script>
     layui.use('element', function(){
         var $ = layui.jquery;
+        refreshPage();
 
         //接收並更新管理頁面基本資訊
-        $.ajax({
+        function refreshPage(){
+            $.ajax({
+                url:"/cloudManagement/refreshPage",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
 
-            url:"/router/更新頁面",
-            type:"post",
-            contentType:"application/json",
-            dataType:"html",
-            success:function (data) {
-                document.getElementById("bodyRightFrame").srcdoc = data; //srcdoc屬性，會將html程式碼作為視圖呈現。
-            },error(){
-                alert("連線逾時，請重新登錄");
-            }
+                    $("#userNameText").text(data.userName);
+                    $("#myDocumentText").text(data.myDocumentCount);
+                    $("#myImageText").text(data.myImageCount);
+                    $("#myVideoText").text(data.myVideoCount);
+                    $("#myMusicText").text(data.myMusicCount);
+                    $("#otherDocumentText").text(data.otherDocumentCount);
 
-        });
+                },error(){
+                    alert("連線逾時，請重新登錄");
+                }
+            });
+        }
 
         //使用情況按鈕點擊事件
         $("#usingSituationBtn").click(function () {
+
+            refreshPage();
             $.ajax({
                 url:"/router/checkGoUsingSituation",
                 type:"post",
@@ -163,6 +169,8 @@
 
         //上傳檔案按鈕點擊事件
         $("#filesUploadBtn").click(function () {
+
+            refreshPage();
             $.ajax({
                 url:"/router/checkGoFileUpload",
                 type:"post",
@@ -204,7 +212,7 @@
         //我的文件、我的圖片、我的影片、我的音樂、其他文件、所有檔案頁面按鈕點擊事件
         function checkGoAutoSortFilePages(pageNumber) {
 
-            console.log(pageNumber);
+            refreshPage();
 
             $.ajax({
                 url:"/router/checkGoAutoSortFiles/" + pageNumber,

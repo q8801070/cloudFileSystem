@@ -21,18 +21,20 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
+        System.out.println("攔截");
+
         //獲取session
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(configurationFactory.getUserSession());
 
         //判斷該session是否已經有用戶在使用
         if(user != null){
+            System.out.println("here");
             //已經有用戶在使用，跳轉回登錄頁面，不允許登錄，強行跳轉。
-            request.getRequestDispatcher("cloud-management").forward(request,response); //轉發至雲端管理頁面
-            return false;
-        }else{
+            request.getRequestDispatcher("/router/checkGoCloudManagement").forward(request,response); //轉發至雲端管理頁面
             return true;
         }
+        return true;
 
     }
 

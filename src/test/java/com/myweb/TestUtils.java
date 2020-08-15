@@ -23,7 +23,7 @@ public class TestUtils {
     @Test
     public void TestCreateStore(){
         User user = new User();
-        user.setId(1);
+        user.setId(2);
 
         try {
             fileUtil.createUserStore(user);

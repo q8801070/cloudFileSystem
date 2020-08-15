@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CloudManagementModel {
 
-    private String username;
+    private String userName;
     private int myDocumentCount;
     private int myImageCount;
     private int myVideoCount;

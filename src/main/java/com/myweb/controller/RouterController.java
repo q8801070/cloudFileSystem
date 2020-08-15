@@ -26,7 +26,7 @@ public class RouterController {
     ConfigurationFactory configurationFactory;
 
     //前往雲端管理頁面
-    @PostMapping("/checkGoCloudManagement")
+    @RequestMapping("/checkGoCloudManagement")
     public String checkGoCloudManagement(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(configurationFactory.getUserSession());
