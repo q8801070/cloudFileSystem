@@ -41,7 +41,7 @@
         `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '使用者id',
         `username` varchar(30) DEFAULT NULL COMMENT '帳號',
         `password` varchar(30) DEFAULT NULL COMMENT '密碼',
-      `name` varchar(30) DEFAULT NULL COMMENT '姓名',
+        `name` varchar(30) DEFAULT NULL COMMENT '姓名',
          PRIMARY KEY(`id`)
 
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -68,10 +68,10 @@
     #使用者硬碟使用狀態表
     CREATE TABLE user_store(
 
-      `id` int(11) NOT NULL COMMENT '檔案持有者id',
+        `id` int(11) NOT NULL COMMENT '檔案持有者id',
         `store_id` int(11) AUTO_INCREMENT COMMENT '倉庫id',
         `current_size` int(11) DEFAULT NULL COMMENT '當前容量',
-      `max_size` int(11) DEFAULT NULL COMMENT '總容量限制',
+        `max_size` int(11) DEFAULT NULL COMMENT '總容量限制',
         PRIMARY KEY(`store_id`)
 
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
