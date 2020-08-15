@@ -28,7 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //判斷該session是否已經有用戶在使用
         if(user != null){
             //已經有用戶在使用，跳轉回登錄頁面，不允許登錄，強行跳轉。
-            request.getRequestDispatcher("/templates/cloud-management.html").forward(request,response); //轉發回登入頁面
+            request.getRequestDispatcher("cloud-management").forward(request,response); //轉發至雲端管理頁面
             return false;
         }else{
             return true;

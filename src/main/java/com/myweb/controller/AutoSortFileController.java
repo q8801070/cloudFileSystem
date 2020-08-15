@@ -34,6 +34,7 @@ public class AutoSortFileController {
     @RequestMapping("/reloadTable/{fileType}")
     public AutoSortFileModel myDocumentModel(HttpServletRequest request,@PathVariable("fileType")int type){
 
+
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute(configurationFactory.getUserSession());
 

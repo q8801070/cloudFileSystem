@@ -27,7 +27,7 @@ public class UserController {
 
 
     //登錄功能
-    @PostMapping("/login")
+    @RequestMapping("/login")
     @ResponseBody
     public ModelAndView login(@RequestParam("username")String username,
                               @RequestParam("password")String password,
@@ -39,6 +39,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         if(result == true){
             modelAndView.setViewName("cloud-management");
+
+            //redirect:/templates/cloud-management.html
 
         }else if(result == false){
             modelAndView.setViewName("index");

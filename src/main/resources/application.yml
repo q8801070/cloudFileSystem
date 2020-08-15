@@ -7,9 +7,10 @@ spring:
     url: jdbc:mysql://localhost:3306/cloud_management?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
 
 
-#配置靜態資源路徑
-  resources:
-    static-locations: classpath:/ #只要是static裡面的資源，要從根目錄(resources底下)開始找
+##配置靜態資源路徑
+#  resources:
+#    static-locations: classpath:/  #只要是static裡面的資源，要從根目錄(resources底下)開始找
+
 
 
 #配置單次上傳容量限制
@@ -26,7 +27,12 @@ mycloud:
 
 #配置自定義Session名稱
 mysession:
-  user: user #key值為user 存放com.myweb.pojo.User類物件
+  user: user #key值為user 該session用於存放com.myweb.pojo.User類物件
+
+
+#配置自定義Cookie名稱
+mycookie:
+  show-file-page-number: showFilePageNumber #代號表示各頁面 1我的文件 2我的圖片 3我的影片 4我的音樂 5其他文件 6所有檔案
 
 
 

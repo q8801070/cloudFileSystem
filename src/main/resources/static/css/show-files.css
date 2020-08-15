@@ -9,6 +9,12 @@ body{
     height: 100%;
 }
 
+/*解決layui表格問題*/
+.layui-table-cell{
+    height: auto;
+    width: auto;
+}
+
 /*頂部區塊*/
 .header{
 

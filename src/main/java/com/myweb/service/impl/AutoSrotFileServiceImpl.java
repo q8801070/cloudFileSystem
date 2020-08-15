@@ -169,18 +169,18 @@ public class AutoSrotFileServiceImpl implements AutoSortFileService {
     private String getImagePathByType(int type){
         switch (type){
             case FileUtil.DOCUMENT:
-                return "/static/images/document.png";
+                return "/images/document.png";
             case FileUtil.IMAGE:
-                return "/static/images/image.png";
+                return "/images/image.png";
             case FileUtil.VIDEO:
-                return "/static/images/video.png";
+                return "/images/video.png";
             case FileUtil.MUSIC:
                 return "static/images/music.png";
             case FileUtil.OTHER:
-                return "/static/images/other.png";
+                return "/images/other.png";
         }
 
-        return "/static/images/cloud.png";
+        return "/images/cloud.png";
     }
 
     private String getTypeNameByType(int type){

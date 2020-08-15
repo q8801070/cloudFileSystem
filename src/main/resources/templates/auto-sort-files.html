@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="/static/css/show-files.css"> <!--引用外部css-->
+    <link rel="stylesheet" href="/css/show-files.css"> <!--引用外部css-->
 
-    <link rel="stylesheet" href="/static/layui/css/layui.css"> <!--引用layui css-->
-    <script src="/static/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
+    <link rel="stylesheet" href="/layui/css/layui.css"> <!--引用layui css-->
+    <script src="/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> <!--引入chart.js-->
-
     <style>
         .layui-table-cell{
             height: auto;
             width: auto;
         }
     </style>
+
 
 </head>
 <body>
@@ -44,7 +44,6 @@
 
     </div>
 
-
 </div>
 
 <script type="text/html" id="imgtemp">
@@ -62,10 +61,25 @@
 
         reloadTable(); //讀取表格
 
+        //獲取Cookie
+        function getCookie(keyName) {
+            if(document.cookie.length > 0) {
+                c_start = document.cookie.indexOf(keyName + "=");//獲取字串的起點
+                if(c_start != -1) {
+                    c_start = c_start + keyName.length + 1;//獲取值的起點
+                    c_end = document.cookie.indexOf(";", c_start);//獲取結尾處
+                    if(c_end == -1) c_end = document.cookie.length;//如果是最後一個,結尾就是cookie字串的結尾
+                    return decodeURI(document.cookie.substring(c_start, c_end));//擷取字串返回
+                }
+            }
+            return "";
+        }
+
+        //更新表格
         function reloadTable() {
             tableIns = table.render({
                 elem:'#userTable'  //渲染的目標對象
-                ,url:'/autoSortFile/reloadTable/6' //API
+                ,url:'/autoSortFile/reloadTable/' + getCookie("showFilePageNumber") //API
                 ,dataType:"json"
                 ,type:'post'
                 ,title:'使用者數據表' //數據導出的標題
@@ -87,9 +101,9 @@
 
                 }
                 ,page: false //是否啟用分頁
-                ,cols: [[ //列表數據
-                    // {type: 'checkbox' ,fixed: 'left'} //特殊種類時用到type
-                    {field:'imagePath', title:'',align: 'center',templet:function (d) { //d為該次Json數據返回值
+                ,cols: [ //不要用[ [ ] ] ，把括號分開，避免被thymeleaf誤判成表達式，連這個註解都不準這樣用。
+                    [ //列表數據
+                    {field:'imagePath', title:'',align: 'center', templet:function (d) { //d為該次Json數據返回值
                         return '<div>' + '<img src="' + d.imagePath +'"></div>'; //拼接模板
                         }
                       }
@@ -99,7 +113,8 @@
                     ,{field:'fileType', title:'檔案類型',align:"center"}
                     // ,{field:'downloadTime', title:'下載次數', align: 'center'}
                     ,{fixed: 'right', title: '操作', toolbar: '#userBar', align: 'center'}
-                ]]
+                ]
+                ]
             });
         }
 

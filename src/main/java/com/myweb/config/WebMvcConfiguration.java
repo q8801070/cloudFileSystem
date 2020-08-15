@@ -5,6 +5,8 @@ import com.myweb.interceptor.ReLoginCheckInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
@@ -18,9 +20,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(LoginInterceptor()).addPathPatterns("/");
+
 //        registry.addInterceptor(ReLoginCheckInterceptor())
 //                .addPathPatterns("/**")
 //                .excludePathPatterns("/user/**")
+//                .excludePathPatterns("/templates/index.html")
 //                .excludePathPatterns(EXCLUDE_PATH);
     }
 

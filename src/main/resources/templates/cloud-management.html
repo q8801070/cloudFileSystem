@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <title>雲端檔案管理</title>
 
-    <link rel="stylesheet" href="/static/css/cloud-management.css"> <!--引用外部css-->
+    <link rel="stylesheet" href="/css/cloud-management.css"> <!--引用外部css-->
 
-    <link rel="stylesheet" href="/static/layui/css/layui.css"> <!--引用layui css-->
-    <script src="/static/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
+    <link rel="stylesheet" href="/layui/css/layui.css"> <!--引用layui css-->
+    <script src="/layui/layui.js" charset="utf-8"></script> <!--引用layui js-->
 
 </head>
 <body>
@@ -35,23 +35,23 @@
 
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo">
 
-        <img src="/static/images/cloud.png" style="padding-left: 50%; margin-left: -32px; padding-top: 10px;padding-bottom: 5px">
+        <img src="/images/cloud.png" style="padding-left: 50%; margin-left: -32px; padding-top: 10px;padding-bottom: 5px">
 
 
         <li class="layui-nav-item">
-            <a href="">
-                   <i class="layui-icon" style="font-size: 17px">&#xe62c; &nbsp 使用情況</i>
+            <a href="javascript:;" id="usingSituationBtn">
+                <i class="layui-icon" style="font-size: 17px">&#xe62c; &nbsp 使用情況</i>
             </a>
         </li>
 
-        <li class="layui-nav-item">
-            <a href="">
+        <li class="layui-nav-item" id="allFilesBtn">
+            <a href="javascript:;">
                 <i class="layui-icon" style="font-size: 17px">&#xe705; &nbsp 所有檔案</i>
             </a>
         </li>
 
-        <li class="layui-nav-item">
-            <a href="">
+        <li class="layui-nav-item" id="filesUploadBtn">
+            <a href="javascript:;">
                 <i class="layui-icon" style="font-size: 17px">&#xe67c; &nbsp 上傳檔案</i>
             </a>
         </li>
@@ -60,32 +60,32 @@
             <a href="javascript:;">自動分類檔案</a>
             <dl class="layui-nav-child">
                 <dd>
-                    <a href="javascript:;">
+                    <a href="javascript:;" id="myDocumentBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe621; &nbsp 我的文件</i>
                         <span class="layui-badge">0</span>
                     </a>
                 </dd>
                 <dd>
-                    <a href="javascript:;">
+                    <a href="javascript:;" id="myImageBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe64a; &nbsp 我的圖片</i>
                         <span class="layui-badge">0</span>
                     </a>
                 </dd>
 
                 <dd>
-                    <a href="javascript:;">
+                    <a href="javascript:;" id="myVideoBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe6ed; &nbsp 我的影片</i>
                         <span class="layui-badge">0</span>
                     </a>
                 </dd>
                 <dd>
-                    <a href="javascript:;">
+                    <a href="javascript:;" id="myMusicBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe6fc; &nbsp 我的音樂</i>
                         <span class="layui-badge">0</span>
                     </a>
                 </dd>
                 <dd>
-                    <a href="javascript:;">
+                    <a href="javascript:;" id="otherDocumentBtn">
                         <i class="layui-icon" style="font-size: 17px">&#xe630; &nbsp 其他文件</i>
                         <span class="layui-badge">0</span>
                     </a>
@@ -112,7 +112,7 @@
 <!--右側區塊開始-->
 <div class="bodyRight">
 
-    <iframe src="/public/using-situation.html" class="bodyRightFrame" id="bodyRightFrame"></iframe>
+    <iframe src="/router/checkGoUsingSituation" class="bodyRightFrame" id="bodyRightFrame"></iframe>
 
 </div>
 <!--右側區塊結束-->
@@ -129,8 +129,95 @@
 
 <script>
     layui.use('element', function(){
-        var element = layui.element;
+        var $ = layui.jquery;
 
+        //接收並更新管理頁面基本資訊
+        $.ajax({
+
+            url:"/router/更新頁面",
+            type:"post",
+            contentType:"application/json",
+            dataType:"html",
+            success:function (data) {
+                document.getElementById("bodyRightFrame").srcdoc = data; //srcdoc屬性，會將html程式碼作為視圖呈現。
+            },error(){
+                alert("連線逾時，請重新登錄");
+            }
+
+        });
+
+        //使用情況按鈕點擊事件
+        $("#usingSituationBtn").click(function () {
+            $.ajax({
+                url:"/router/checkGoUsingSituation",
+                type:"post",
+                contentType:"application/json",
+                dataType:"html",
+                success:function (data) {
+                    document.getElementById("bodyRightFrame").srcdoc = data; //srcdoc屬性，會將html程式碼作為視圖呈現。
+                },error(){
+                    alert("連線逾時，請重新登錄");
+                }
+            });
+        });
+
+        //上傳檔案按鈕點擊事件
+        $("#filesUploadBtn").click(function () {
+            $.ajax({
+                url:"/router/checkGoFileUpload",
+                type:"post",
+                contentType:"application/json",
+                dataType:"html",
+                success:function (data) {
+                    document.getElementById("bodyRightFrame").srcdoc = data; //srcdoc屬性，會將html程式碼作為視圖呈現。
+                },error:function () {
+                    alert("連線逾時，請重新登錄");
+                }
+            });
+        });
+
+        $("#myDocumentBtn").click(function () {
+            checkGoAutoSortFilePages(1);
+        });
+
+        $("#myImageBtn").click(function () {
+            checkGoAutoSortFilePages(2);
+        });
+
+        $("#myVideoBtn").click(function () {
+            checkGoAutoSortFilePages(3);
+        });
+
+        $("#myMusicBtn").click(function () {
+            checkGoAutoSortFilePages(4);
+        });
+
+        $("#otherDocumentBtn").click(function () {
+            checkGoAutoSortFilePages(5);
+        });
+
+        $("#allFilesBtn").click(function () {
+            checkGoAutoSortFilePages(6);
+        });
+
+
+        //我的文件、我的圖片、我的影片、我的音樂、其他文件、所有檔案頁面按鈕點擊事件
+        function checkGoAutoSortFilePages(pageNumber) {
+
+            console.log(pageNumber);
+
+            $.ajax({
+                url:"/router/checkGoAutoSortFiles/" + pageNumber,
+                type:"post",
+                contentType:"application/json",
+                dataType:"html",
+                success:function (data) {
+                    document.getElementById("bodyRightFrame").srcdoc = data; //srcdoc屬性，會將html程式碼作為視圖呈現。
+                },error:function () {
+                    alert("連線逾時，請重新登錄");
+                }
+            });
+        }
 
     });
 </script>
