@@ -13,9 +13,9 @@
 ---
 * HTML
 * CSS
-* JAVASCRIPT
-* JQUERY+AJAX
-* LAYUI
+* JavaScript
+* Jquery+Ajax
+* Layui
 
 後端相關
 ---
