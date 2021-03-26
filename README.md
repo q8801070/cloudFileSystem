@@ -77,7 +77,6 @@
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
     
 # 介面截圖
-預計將進行介面美化。
 
 登入與註冊介面
 ---
